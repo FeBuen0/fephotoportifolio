@@ -1,0 +1,33 @@
+{
+  "intro": "Fotógrafo, Videomaker, Editor e Motion Designer",
+  "backgrounds": {
+    "hero": "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2000&q=80",
+    "projects": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=2000&q=80",
+    "work": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=2000&q=80",
+    "about": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=2000&q=80",
+    "contact": "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=2000&q=80"
+  },
+  "about": [
+    "Sou Felipe Bueno, fotógrafo, videomaker, editor e motion designer de Curitiba.",
+    "Estudo Design na PUCPR e estou no começo da minha carreira.",
+    "Meu foco são ensaios pessoais e ensaios para marcas, com vídeos para os dois.",
+    "Busco detalhes, espontaneidade, luz e cor, principalmente as vívidas."
+  ],
+  "workSteps": [
+    { "title": "Briefing", "text": "Alinho objetivo, referências, roteiro e prazo. Procuro entender como você se vê e o que quer mostrar." },
+    { "title": "Captação", "text": "Misturo direção com momentos espontâneos, mantendo as referências em mente e prestando atenção aos detalhes." },
+    { "title": "Edição e cor", "text": "Adapto o ritmo e o visual ao projeto. Gosto de explorar as cores, das combinações vibrantes ao preto e branco com uma cor em destaque." },
+    { "title": "Entrega", "text": "Envio o trabalho finalizado. Inclui até 2 rodadas de ajustes a partir do seu retorno." }
+  ],
+  "contacts": {
+    "email": "contatofebueno06@gmail.com",
+    "whatsapp": "https://wa.me/5542991080609",
+    "instagram": "@fephoto.tb",
+    "instagramUrl": "https://www.instagram.com/fephoto.tb/"
+  },
+  "seo": {
+    "title": "Felipe Bueno — Foto, Vídeo e Motion",
+    "description": "Portfólio de Felipe Bueno — fotógrafo, videomaker, editor e motion designer de Curitiba.",
+    "shareImage": "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=82"
+  }
+}

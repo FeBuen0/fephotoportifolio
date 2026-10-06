@@ -1,0 +1,21 @@
+{
+  "title": "Luz de fim de tarde",
+  "type": "Ensaio pessoal",
+  "order": 1,
+  "isExample": true,
+  "media": {
+    "mode": "images",
+    "youtubeId": "",
+    "images": [
+      {
+        "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1600&q=80",
+        "alt": "Retrato feminino em luz natural de fim de tarde — imagem de exemplo"
+      }
+    ]
+  },
+  "description": {
+    "challenge": "Criar um ensaio pessoal com presença, cor e leveza sem transformar o momento em algo excessivamente posado.",
+    "role": "Direção, fotografia, seleção e tratamento de cor.",
+    "result": "Uma série curta e espontânea, construída pela luz e pelos pequenos gestos."
+  }
+}

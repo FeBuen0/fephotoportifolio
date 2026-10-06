@@ -1,0 +1,96 @@
+backend:
+  name: github
+  repo: FeBuen0/fephotoportifolio
+  branch: main
+  use_graphql: true
+
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "projects"
+    label: "Projetos"
+    label_singular: "Projeto"
+    folder: "content/projects"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    summary: "{{order}} — {{title}} ({{type}})"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - label: "Tipo"
+        name: "type"
+        widget: "select"
+        options: ["Ensaio pessoal", "Ensaio para marcas", "Vídeo", "Motion"]
+      - { label: "Ordem", name: "order", widget: "number", value_type: "int", min: 1 }
+      - { label: "É conteúdo de exemplo?", name: "isExample", widget: "boolean", default: false }
+      - label: "Mídia"
+        name: "media"
+        widget: "object"
+        fields:
+          - label: "Tipo de mídia"
+            name: "mode"
+            widget: "select"
+            options:
+              - { label: "Fotos", value: "images" }
+              - { label: "Vídeo do YouTube", value: "youtube" }
+          - { label: "ID do YouTube", name: "youtubeId", widget: "string", required: false, hint: "Só o ID após v= na URL. Ex.: dQw4w9WgXcQ" }
+          - label: "Imagens"
+            name: "images"
+            widget: "list"
+            min: 1
+            fields:
+              - { label: "Imagem", name: "image", widget: "image" }
+              - { label: "Texto alternativo", name: "alt", widget: "string", hint: "Descreva a imagem para leitores de tela." }
+      - label: "Descrição"
+        name: "description"
+        widget: "object"
+        fields:
+          - { label: "Desafio", name: "challenge", widget: "text" }
+          - { label: "O que fiz", name: "role", widget: "text" }
+          - { label: "Resultado", name: "result", widget: "text" }
+
+  - name: "site"
+    label: "Textos, fotos e contatos"
+    files:
+      - label: "Configurações do site"
+        name: "settings"
+        file: "content/site.json"
+        fields:
+          - { label: "Frase de apresentação", name: "intro", widget: "string" }
+          - label: "Fotos de fundo"
+            name: "backgrounds"
+            widget: "object"
+            hint: "Troque todos os exemplos por fotos suas comprimidas em WebP ou JPG."
+            fields:
+              - { label: "Início", name: "hero", widget: "image" }
+              - { label: "Projetos", name: "projects", widget: "image" }
+              - { label: "Como eu trabalho", name: "work", widget: "image" }
+              - { label: "Sobre mim", name: "about", widget: "image" }
+              - { label: "Contato", name: "contact", widget: "image" }
+          - label: "Sobre mim"
+            name: "about"
+            widget: "list"
+            field: { label: "Parágrafo", name: "paragraph", widget: "string" }
+          - label: "Como eu trabalho"
+            name: "workSteps"
+            widget: "list"
+            fields:
+              - { label: "Etapa", name: "title", widget: "string" }
+              - { label: "Texto", name: "text", widget: "text" }
+          - label: "Contatos"
+            name: "contacts"
+            widget: "object"
+            fields:
+              - { label: "E-mail", name: "email", widget: "string" }
+              - { label: "WhatsApp (link wa.me)", name: "whatsapp", widget: "string" }
+              - { label: "Instagram", name: "instagram", widget: "string" }
+              - { label: "URL do Instagram", name: "instagramUrl", widget: "string" }
+          - label: "SEO"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Descrição", name: "description", widget: "text" }
+              - { label: "Imagem de compartilhamento", name: "shareImage", widget: "image" }

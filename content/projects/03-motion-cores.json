@@ -1,0 +1,21 @@
+{
+  "title": "Cor em movimento",
+  "type": "Motion",
+  "order": 3,
+  "isExample": true,
+  "media": {
+    "mode": "images",
+    "youtubeId": "",
+    "images": [
+      {
+        "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1600&q=80",
+        "alt": "Composição gráfica colorida — imagem de exemplo"
+      }
+    ]
+  },
+  "description": {
+    "challenge": "Criar movimento para uma linguagem visual simples, deixando a identidade reconhecível em poucos segundos.",
+    "role": "Direção de arte, animação, edição e finalização.",
+    "result": "Uma peça limpa e dinâmica, pensada para chamar atenção sem sobrecarregar a mensagem."
+  }
+}

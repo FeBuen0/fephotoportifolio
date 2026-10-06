@@ -1,0 +1,21 @@
+{
+  "title": "Ritmo de marca",
+  "type": "Vídeo",
+  "order": 2,
+  "isExample": true,
+  "media": {
+    "mode": "youtube",
+    "youtubeId": "Scxs7L0vhZ4",
+    "images": [
+      {
+        "image": "https://i.ytimg.com/vi/Scxs7L0vhZ4/hqdefault.jpg",
+        "alt": "Capa de vídeo de exemplo"
+      }
+    ]
+  },
+  "description": {
+    "challenge": "Traduzir a atmosfera e a energia de uma marca em um vídeo curto para redes sociais.",
+    "role": "Conceito, captação, edição, cor e adaptação de formato.",
+    "result": "Um filme objetivo, com cortes e cor a serviço da identidade da marca."
+  }
+}
