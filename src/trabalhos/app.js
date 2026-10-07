@@ -87,7 +87,7 @@ function renderGroups(projects) {
   });
   $('#works-groups').innerHTML = sortedGroups.map(([type, entries]) => `<section class="work-topic" aria-label="${escapeHtml(type)}">
     ${type === 'Motion' ? '<div class="motion-topic-heading"><h2>Motion</h2></div>' : ''}
-    <div class="work-topic-projects">${entries.map(projectMarkup).join('')}</div>
+    <div class="work-topic-projects${type === 'Motion' ? ' work-topic-projects--motion' : ''}">${entries.map(projectMarkup).join('')}</div>
   </section>`).join('');
   $('#works-groups').querySelectorAll('img').forEach((image) => image.addEventListener('error', () => {
     const photo = image.closest('.project-photo');
