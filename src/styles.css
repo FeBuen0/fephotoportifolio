@@ -135,7 +135,7 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
 .works-intro h1 { margin-bottom: .8rem; font-size: clamp(4.2rem, 22vw, 10rem); }
 .works-intro > p:last-child { margin: 0; color: var(--muted); font-size: .92rem; }
 .works-groups { display: grid; gap: 6rem; }
-.work-topic { display: grid; gap: 2.2rem; }
+.work-topic { display: grid; gap: 1rem; }
 .work-topic-heading { max-width: 680px; }
 .work-topic-heading h2 { font-size: clamp(3.1rem, 11vw, 6.5rem); }
 .work-topic-projects { display: grid; gap: 5rem; }
