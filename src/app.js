@@ -1,14 +1,20 @@
 const state = { site: null, allProjects: [], featuredPhotos: [], featuredIndex: 0 };
 const $ = (selector) => document.querySelector(selector);
+const pagesBasePath = window.location.hostname === 'febuen0.github.io' ? '/fephotoportifolio' : '';
 
 const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;'
 }[character]));
 
+function assetUrl(value = '') {
+  if (!value || /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(value)) return value;
+  return value.startsWith('/') ? `${pagesBasePath}${value}` : value;
+}
+
 function renderBackgrounds(backgrounds) {
   const container = $('.background-stack');
   container.innerHTML = Object.entries(backgrounds).map(([name, url]) =>
-    `<div class="background-layer${name === 'hero' ? ' is-active' : ''}" data-background-layer="${escapeHtml(name)}" style="background-image:url('${escapeHtml(url)}')"></div>`
+    `<div class="background-layer${name === 'hero' ? ' is-active' : ''}" data-background-layer="${escapeHtml(name)}" style="background-image:url('${escapeHtml(assetUrl(url))}')"></div>`
   ).join('');
 }
 
@@ -82,7 +88,7 @@ function renderFeaturedProject() {
   }
 
   stage.innerHTML = `<article class="featured-project-card">
-    <figure class="featured-project-media"><img src="${escapeHtml(photo.image)}" alt="${escapeHtml(photo.alt || `Foto de ${photo.project.title}`)}" decoding="async" /></figure>
+    <figure class="featured-project-media"><img src="${escapeHtml(assetUrl(photo.image))}" alt="${escapeHtml(photo.alt || `Foto de ${photo.project.title}`)}" decoding="async" /></figure>
     <div class="featured-project-copy">
       <p class="project-meta">${escapeHtml(photo.project.type)}</p>
       <h3>${escapeHtml(photo.project.title)}</h3>
