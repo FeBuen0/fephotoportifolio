@@ -1,12 +1,18 @@
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' }[character]));
+const pagesBasePath = window.location.hostname === 'febuen0.github.io' ? '/fephotoportifolio' : '';
+
+function assetUrl(value = '') {
+  if (!value || /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(value)) return value;
+  return value.startsWith('/') ? `${pagesBasePath}${value}` : value;
+}
 
 function motionMedia(project) {
-  const poster = project.media.poster || '';
+  const poster = assetUrl(project.media.poster || '');
   return `<div class="motion-media" data-motion-player>
     <span class="media-label">Motion</span>
     <video data-motion-video muted playsinline preload="metadata" poster="${escapeHtml(poster)}" aria-label="Vídeo: ${escapeHtml(project.title)}">
-      <source src="${escapeHtml(project.media.video)}" type="video/mp4" />
+      <source src="${escapeHtml(assetUrl(project.media.video))}" type="video/mp4" />
       Seu navegador não suporta vídeo HTML5.
     </video>
     <button class="motion-restart" type="button" data-motion-restart hidden aria-label="Recomeçar ${escapeHtml(project.title)}">↻ <span>Recomeçar</span></button>
@@ -16,7 +22,7 @@ function motionMedia(project) {
 function imageMedia(project) {
   const images = (project.media?.images || []).filter((item) => item.image);
   return `<div class="project-media-grid">
-    ${images.map((item) => `<figure class="project-photo"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt || `Foto de ${project.title}`)}" loading="lazy" decoding="async" /></figure>`).join('')}
+    ${images.map((item) => `<figure class="project-photo"><img src="${escapeHtml(assetUrl(item.image))}" alt="${escapeHtml(item.alt || `Foto de ${project.title}`)}" loading="lazy" decoding="async" /></figure>`).join('')}
   </div>`;
 }
 
