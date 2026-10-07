@@ -167,7 +167,7 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
   .project-card { grid-template-columns: minmax(0, 1.15fr) minmax(270px, .85fr); gap: 2.2rem; } .project-media { min-height: 430px; } .project-copy { padding: .2rem 0; }
   .featured-project-card { grid-template-columns: minmax(0, 1.1fr) minmax(270px, .9fr); gap: 2.5rem; align-items: center; } .featured-project-copy { padding: .2rem 0; }
   .works-main { padding: 9rem 2.5rem 6rem; } .works-filters { margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; } .works-stage .project-card { grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr); gap: 2.5rem; } .works-stage .project-media { aspect-ratio: auto; min-height: 530px; } .works-stage .project-copy { padding: .4rem 0; } .works-navigation { position: relative; margin: 1.15rem 0 0; padding: 0; background: transparent; backdrop-filter: none; }
-  .work-topic-projects { gap: 6.5rem; } .work-project { grid-template-columns: minmax(220px, .34fr) minmax(0, .66fr); gap: 3rem; } .project-media-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .motion-media { align-self: start; }
+  .work-topic-projects { gap: 6.5rem; } .work-project { grid-template-columns: minmax(220px, .34fr) minmax(0, .66fr); gap: 3rem; } .project-media-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .motion-media { align-self: start; } .work-topic-projects--motion { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; } .work-topic-projects--motion .work-project-motion { display: block; padding-top: 0; }
   .floating-contact { right: 2rem; bottom: 2rem; } .work-step { grid-template-columns: 85px 1fr; padding: 1.8rem 0; }
 }
 @media (max-width: 699px) {
