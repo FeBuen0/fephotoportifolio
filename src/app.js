@@ -178,7 +178,23 @@ function observeSections() {
         const rect = section.getBoundingClientRect();
         const progress = Math.max(-1, Math.min(1, (window.innerHeight / 2 - (rect.top + rect.height / 2)) / (window.innerHeight / 2)));
         layer.style.setProperty('--parallax-offset', `${Math.round(progress * 34)}px`);
+
+        if (section.dataset.background === 'hero') {
+          const scrollableHeight = Math.max(1, rect.height - window.innerHeight);
+          const revealProgress = Math.max(0, Math.min(1, -rect.top / scrollableHeight));
+          layer.style.setProperty('--hero-position-y', `${Math.round(revealProgress * 100)}%`);
+        }
       });
+
+      const viewportCenter = window.innerHeight / 2;
+      const centeredSection = Array.from(sections).find((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= viewportCenter && rect.bottom > viewportCenter;
+      });
+      if (centeredSection) {
+        const key = centeredSection.dataset.background;
+        backgrounds.forEach((layer) => layer.classList.toggle('is-active', layer.dataset.backgroundLayer === key));
+      }
     };
     const requestBackgroundUpdate = () => {
       if (!scheduled) {
