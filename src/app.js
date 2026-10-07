@@ -165,6 +165,7 @@ function observeSections() {
     if (!visible) return;
     const key = visible.target.dataset.background;
     backgrounds.forEach((layer) => layer.classList.toggle('is-active', layer.dataset.backgroundLayer === key));
+    document.documentElement.classList.toggle('is-hero-active', key === 'hero');
   }, { threshold: [0.3, 0.55, 0.75] });
   sections.forEach((section) => sectionObserver.observe(section));
 
@@ -194,6 +195,7 @@ function observeSections() {
       if (centeredSection) {
         const key = centeredSection.dataset.background;
         backgrounds.forEach((layer) => layer.classList.toggle('is-active', layer.dataset.backgroundLayer === key));
+        document.documentElement.classList.toggle('is-hero-active', key === 'hero');
       }
     };
     const requestBackgroundUpdate = () => {
