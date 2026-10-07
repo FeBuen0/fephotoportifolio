@@ -159,13 +159,37 @@ function applyFilter(filter) {
 
 function observeSections() {
   const backgrounds = document.querySelectorAll('[data-background-layer]');
+  const sections = document.querySelectorAll('[data-background]');
   const sectionObserver = new IntersectionObserver((entries) => {
     const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
     if (!visible) return;
     const key = visible.target.dataset.background;
     backgrounds.forEach((layer) => layer.classList.toggle('is-active', layer.dataset.backgroundLayer === key));
   }, { threshold: [0.3, 0.55, 0.75] });
-  document.querySelectorAll('[data-background]').forEach((section) => sectionObserver.observe(section));
+  sections.forEach((section) => sectionObserver.observe(section));
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let scheduled = false;
+    const updateBackgroundMovement = () => {
+      scheduled = false;
+      sections.forEach((section) => {
+        const layer = document.querySelector(`[data-background-layer="${section.dataset.background}"]`);
+        if (!layer) return;
+        const rect = section.getBoundingClientRect();
+        const progress = Math.max(-1, Math.min(1, (window.innerHeight / 2 - (rect.top + rect.height / 2)) / (window.innerHeight / 2)));
+        layer.style.setProperty('--parallax-offset', `${Math.round(progress * 34)}px`);
+      });
+    };
+    const requestBackgroundUpdate = () => {
+      if (!scheduled) {
+        scheduled = true;
+        window.requestAnimationFrame(updateBackgroundMovement);
+      }
+    };
+    window.addEventListener('scroll', requestBackgroundUpdate, { passive: true });
+    window.addEventListener('resize', requestBackgroundUpdate);
+    requestBackgroundUpdate();
+  }
 
   const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
     if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); }
