@@ -55,7 +55,7 @@ function shuffle(items) {
 
 function featuredPhotos(projects) {
   return shuffle(projects.flatMap((project) => project.media?.mode === 'images'
-    ? (project.media.images || []).map((photo) => ({ ...photo, project }))
+    ? (project.media.images || []).filter((photo) => photo.image).map((photo) => ({ ...photo, project }))
     : []
   )).slice(0, 5);
 }
@@ -91,6 +91,11 @@ function renderFeaturedProject() {
   </article>`;
   counter.textContent = `${String(state.featuredIndex + 1).padStart(2, '0')} / ${String(state.featuredPhotos.length).padStart(2, '0')}`;
   next.setAttribute('aria-label', state.featuredIndex === state.featuredPhotos.length - 1 ? 'Ver todos os projetos' : 'Próxima foto');
+  stage.querySelector('img').addEventListener('error', () => {
+    state.featuredPhotos.splice(state.featuredIndex, 1);
+    state.featuredIndex = Math.min(state.featuredIndex, state.featuredPhotos.length);
+    renderFeaturedProject();
+  }, { once: true });
 }
 
 function observeSections() {
@@ -99,6 +104,7 @@ function observeSections() {
   const setActiveBackground = (key) => {
     backgrounds.forEach((layer) => layer.classList.toggle('is-active', layer.dataset.backgroundLayer === key));
     document.documentElement.classList.toggle('is-hero-active', key === 'hero');
+    document.documentElement.classList.toggle('is-projects-active', key === 'projects');
   };
   const sectionObserver = new IntersectionObserver((entries) => {
     const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
