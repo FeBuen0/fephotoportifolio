@@ -27,11 +27,10 @@ function imageMedia(project) {
 }
 
 function projectMarkup(project) {
-  const media = project.media?.mode === 'video' && project.media.video ? motionMedia(project) : imageMedia(project);
-  return `<article class="work-project">
-    <header class="work-project-header">
-      <h2>${escapeHtml(project.title)}</h2>
-    </header>
+  const isMotion = project.type === 'Motion' && project.media?.mode === 'video' && project.media.video;
+  const media = isMotion ? motionMedia(project) : imageMedia(project);
+  return `<article class="work-project${isMotion ? ' work-project-motion' : ''}">
+    ${isMotion ? '' : `<header class="work-project-header"><h2>${escapeHtml(project.title)}</h2></header>`}
     ${media}
   </article>`;
 }
@@ -87,6 +86,7 @@ function renderGroups(projects) {
     return (firstPosition === -1 ? order.length : firstPosition) - (secondPosition === -1 ? order.length : secondPosition);
   });
   $('#works-groups').innerHTML = sortedGroups.map(([type, entries]) => `<section class="work-topic" aria-label="${escapeHtml(type)}">
+    ${type === 'Motion' ? '<div class="motion-topic-heading"><h2>Motion</h2></div>' : ''}
     <div class="work-topic-projects">${entries.map(projectMarkup).join('')}</div>
   </section>`).join('');
   $('#works-groups').querySelectorAll('img').forEach((image) => image.addEventListener('error', () => {
