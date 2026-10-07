@@ -138,6 +138,7 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
 .work-topic { display: grid; gap: 1rem; }
 .work-topic-heading { max-width: 680px; }
 .work-topic-heading h2 { font-size: clamp(3.1rem, 11vw, 6.5rem); }
+.motion-topic-heading h2 { margin: 0; font-size: clamp(2.2rem, 6vw, 3.8rem); }
 .work-topic-projects { display: grid; gap: 5rem; }
 .work-project { display: grid; gap: 1.8rem; padding-top: 1.6rem; border-top: 1px solid var(--line); }
 .work-project-header { max-width: 660px; }
