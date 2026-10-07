@@ -86,7 +86,6 @@ function renderFeaturedProject() {
     <div class="featured-project-copy">
       <p class="project-meta">${escapeHtml(photo.project.type)}</p>
       <h3>${escapeHtml(photo.project.title)}</h3>
-      <p>${escapeHtml(photo.alt || 'Imagem selecionada do projeto.')}</p>
     </div>
   </article>`;
   counter.textContent = `${String(state.featuredIndex + 1).padStart(2, '0')} / ${String(state.featuredPhotos.length).padStart(2, '0')}`;
