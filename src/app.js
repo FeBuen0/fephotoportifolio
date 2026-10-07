@@ -90,7 +90,6 @@ function renderFeaturedProject() {
   stage.innerHTML = `<article class="featured-project-card">
     <figure class="featured-project-media"><img src="${escapeHtml(assetUrl(photo.image))}" alt="${escapeHtml(photo.alt || `Foto de ${photo.project.title}`)}" decoding="async" /></figure>
     <div class="featured-project-copy">
-      <p class="project-meta">${escapeHtml(photo.project.type)}</p>
       <h3>${escapeHtml(photo.project.title)}</h3>
     </div>
   </article>`;
