@@ -26,8 +26,6 @@ function projectMarkup(project) {
     <header class="work-project-header">
       <p class="project-meta">${escapeHtml(project.type)}</p>
       <h2>${escapeHtml(project.title)}</h2>
-      <p>${escapeHtml(project.description.challenge)}</p>
-      <p><strong>O que fiz:</strong> ${escapeHtml(project.description.role)}</p>
     </header>
     ${media}
   </article>`;
