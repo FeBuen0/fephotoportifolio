@@ -30,7 +30,6 @@ function projectMarkup(project) {
   const media = project.media?.mode === 'video' && project.media.video ? motionMedia(project) : imageMedia(project);
   return `<article class="work-project">
     <header class="work-project-header">
-      <p class="project-meta">${escapeHtml(project.type)}</p>
       <h2>${escapeHtml(project.title)}</h2>
     </header>
     ${media}
@@ -72,10 +71,6 @@ function setupMotionPlayers(root = document) {
   });
 }
 
-function topicId(type) {
-  return `topic-${String(type).toLowerCase().replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`;
-}
-
 function renderGroups(projects) {
   const validProjects = projects.filter((project) => (project.media?.mode === 'video' && project.media.video)
     || (project.media?.images || []).some((item) => item.image));
@@ -92,9 +87,6 @@ function renderGroups(projects) {
     return (firstPosition === -1 ? order.length : firstPosition) - (secondPosition === -1 ? order.length : secondPosition);
   });
   $('#works-groups').innerHTML = sortedGroups.map(([type, entries]) => `<section class="work-topic" aria-label="${escapeHtml(type)}">
-    <div class="work-topic-heading">
-      <p class="eyebrow"><span>02</span> ${escapeHtml(type)}</p>
-    </div>
     <div class="work-topic-projects">${entries.map(projectMarkup).join('')}</div>
   </section>`).join('');
   $('#works-groups').querySelectorAll('img').forEach((image) => image.addEventListener('error', () => {
