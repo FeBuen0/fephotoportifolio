@@ -91,10 +91,9 @@ function renderGroups(projects) {
     const secondPosition = order.indexOf(second);
     return (firstPosition === -1 ? order.length : firstPosition) - (secondPosition === -1 ? order.length : secondPosition);
   });
-  $('#works-groups').innerHTML = sortedGroups.map(([type, entries]) => `<section class="work-topic" aria-labelledby="${topicId(type)}">
+  $('#works-groups').innerHTML = sortedGroups.map(([type, entries]) => `<section class="work-topic" aria-label="${escapeHtml(type)}">
     <div class="work-topic-heading">
       <p class="eyebrow"><span>02</span> ${escapeHtml(type)}</p>
-      <h2 id="${topicId(type)}">${escapeHtml(type)}</h2>
     </div>
     <div class="work-topic-projects">${entries.map(projectMarkup).join('')}</div>
   </section>`).join('');
