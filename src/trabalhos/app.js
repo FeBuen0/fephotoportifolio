@@ -14,7 +14,7 @@ function motionMedia(project) {
 }
 
 function imageMedia(project) {
-  const images = project.media?.images || [];
+  const images = (project.media?.images || []).filter((item) => item.image);
   return `<div class="project-media-grid">
     ${images.map((item) => `<figure class="project-photo"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt || `Foto de ${project.title}`)}" loading="lazy" decoding="async" /></figure>`).join('')}
   </div>`;
@@ -73,7 +73,9 @@ function topicId(type) {
 }
 
 function renderGroups(projects) {
-  const groups = projects.reduce((map, project) => {
+  const validProjects = projects.filter((project) => (project.media?.mode === 'video' && project.media.video)
+    || (project.media?.images || []).some((item) => item.image));
+  const groups = validProjects.reduce((map, project) => {
     const type = project.type || 'Outros';
     if (!map.has(type)) map.set(type, []);
     map.get(type).push(project);
@@ -92,6 +94,13 @@ function renderGroups(projects) {
     </div>
     <div class="work-topic-projects">${entries.map(projectMarkup).join('')}</div>
   </section>`).join('');
+  $('#works-groups').querySelectorAll('img').forEach((image) => image.addEventListener('error', () => {
+    const photo = image.closest('.project-photo');
+    if (!photo) return;
+    const grid = photo.parentElement;
+    photo.remove();
+    if (!grid.querySelector('img')) grid.closest('.work-project')?.remove();
+  }, { once: true }));
   setupMotionPlayers($('#works-groups'));
 }
 
