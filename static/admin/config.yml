@@ -35,7 +35,10 @@ collections:
             options:
               - { label: "Fotos", value: "images" }
               - { label: "Vídeo do YouTube", value: "youtube" }
-          - { label: "ID do YouTube", name: "youtubeId", widget: "string", required: false, hint: "Só o ID após v= na URL. Ex.: dQw4w9WgXcQ" }
+              - { label: "Vídeo MP4", value: "video" }
+              - { label: "ID do YouTube", name: "youtubeId", widget: "string", required: false, hint: "Só o ID após v= na URL. Ex.: dQw4w9WgXcQ" }
+          - { label: "Arquivo de vídeo MP4", name: "video", widget: "file", required: false, hint: "Use para vídeos enviados diretamente ao site." }
+          - { label: "Capa do vídeo", name: "poster", widget: "image", required: false }
           - label: "Imagens"
             name: "images"
             widget: "list"

@@ -1,0 +1,19 @@
+{
+  "title": "Tênis em movimento",
+  "type": "Ensaio pessoal",
+  "order": 5,
+  "isExample": false,
+  "media": {
+    "mode": "images", "youtubeId": "", "images": [
+      { "image": "/images/portfolio/dsc02332.jpg", "alt": "Jogador de tênis em quadra" },
+      { "image": "/images/portfolio/dsc02465.jpg", "alt": "Bola de tênis em primeiro plano" },
+      { "image": "/images/portfolio/dsc02589.jpg", "alt": "Jogadora sacando em quadra de tênis" },
+      { "image": "/images/portfolio/dsc02655.jpg", "alt": "Jogadores vistos através da rede de tênis" }
+    ]
+  },
+  "description": {
+    "challenge": "Congelar momentos rápidos sem perder o ritmo e a geometria da quadra.",
+    "role": "Fotografia esportiva e seleção de imagens.",
+    "result": "Uma sequência com ação, detalhes e contexto do jogo."
+  }
+}

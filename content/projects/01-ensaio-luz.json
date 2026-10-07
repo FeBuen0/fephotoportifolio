@@ -1,21 +1,24 @@
 {
-  "title": "Luz de fim de tarde",
+  "title": "Retratos e presença",
   "type": "Ensaio pessoal",
   "order": 1,
-  "isExample": true,
+  "isExample": false,
   "media": {
     "mode": "images",
     "youtubeId": "",
     "images": [
       {
-        "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1600&q=80",
-        "alt": "Retrato feminino em luz natural de fim de tarde — imagem de exemplo"
-      }
+        "image": "/images/portfolio/dsc00026-edit-2.jpg", "alt": "Retrato em ambiente vermelho" },
+      { "image": "/images/portfolio/dsc00093-edit.jpg", "alt": "Retrato de pessoa com roupa social azul" },
+      { "image": "/images/portfolio/dsc00142.jpg", "alt": "Retrato de pessoa em ambiente escuro" },
+      { "image": "/images/portfolio/dsc00150-edit.jpg", "alt": "Retrato em preto e branco" },
+      { "image": "/images/portfolio/dsc00237-edit-2-3.jpg", "alt": "Retrato lateral de pessoa" },
+      { "image": "/images/portfolio/dsc00318.jpg", "alt": "Retrato em luz baixa" }
     ]
   },
   "description": {
-    "challenge": "Criar um ensaio pessoal com presença, cor e leveza sem transformar o momento em algo excessivamente posado.",
-    "role": "Direção, fotografia, seleção e tratamento de cor.",
-    "result": "Uma série curta e espontânea, construída pela luz e pelos pequenos gestos."
+    "challenge": "Criar retratos com identidade, luz e presença sem perder a naturalidade de cada pessoa.",
+    "role": "Fotografia, direção e tratamento de cor.",
+    "result": "Uma seleção de retratos com atmosferas variadas e atenção aos detalhes."
   }
 }

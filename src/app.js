@@ -60,6 +60,26 @@ function projectMedia(project) {
       <button class="play-button" type="button" data-youtube="${escapeHtml(project.media.youtubeId)}" aria-label="Carregar vídeo de ${escapeHtml(project.title)}">Assistir</button>
     </div>`;
   }
+  if (project.media?.mode === 'video' && project.media.video) {
+    return `<div class="project-media">
+      <span class="media-label">Motion</span>
+      <video controls playsinline preload="metadata" poster="${escapeHtml(project.media.poster || cover)}" aria-label="Vídeo: ${escapeHtml(project.title)}">
+        <source src="${escapeHtml(project.media.video)}" type="video/mp4" />
+        Seu navegador não suporta vídeo HTML5.
+      </video>
+    </div>`;
+  }
+  const images = project.media?.images || [];
+  if (images.length > 1) {
+    return `<div class="project-media project-gallery" data-gallery>
+      <span class="media-label">Foto <b data-gallery-counter>01/${String(images.length).padStart(2, '0')}</b></span>
+      <img src="${escapeHtml(images[0].image)}" alt="${escapeHtml(images[0].alt || alt)}" loading="lazy" decoding="async" data-gallery-image />
+      <div class="gallery-controls" aria-label="Navegar pelas fotos do projeto">
+        <button type="button" data-gallery-previous aria-label="Foto anterior">←</button>
+        <button type="button" data-gallery-next aria-label="Próxima foto">→</button>
+      </div>
+    </div>`;
+  }
   return `<div class="project-media">
     <span class="media-label">Fotos</span>
     <img src="${escapeHtml(cover)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />
@@ -94,6 +114,25 @@ function renderProject() {
       const wrapper = play.closest('.project-media');
       wrapper.innerHTML = `<iframe title="Vídeo: ${escapeHtml(project.title)}" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
     }, { once: true });
+  }
+  const gallery = stage.querySelector('[data-gallery]');
+  if (gallery) {
+    const images = project.media.images;
+    let imageIndex = 0;
+    const image = gallery.querySelector('[data-gallery-image]');
+    const counter = gallery.querySelector('[data-gallery-counter]');
+    const showImage = (nextIndex) => {
+      imageIndex = (nextIndex + images.length) % images.length;
+      image.style.opacity = '0';
+      window.setTimeout(() => {
+        image.src = images[imageIndex].image;
+        image.alt = images[imageIndex].alt || `Foto ${imageIndex + 1} de ${project.title}`;
+        counter.textContent = `${String(imageIndex + 1).padStart(2, '0')}/${String(images.length).padStart(2, '0')}`;
+        image.style.opacity = '1';
+      }, 120);
+    };
+    gallery.querySelector('[data-gallery-previous]').addEventListener('click', () => showImage(imageIndex - 1));
+    gallery.querySelector('[data-gallery-next]').addEventListener('click', () => showImage(imageIndex + 1));
   }
   renderThumbnails();
 }

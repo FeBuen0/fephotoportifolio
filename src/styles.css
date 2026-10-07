@@ -52,8 +52,14 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
 .project-card { display: grid; grid-template-columns: 1fr; }
 .project-media { position: relative; min-height: 260px; overflow: hidden; background: #181818; }
 .project-media img, .project-media iframe { width: 100%; height: 100%; display: block; border: 0; object-fit: cover; }
+.project-media video { width: 100%; height: 100%; display: block; object-fit: cover; background: #000; }
 .project-media img { position: absolute; inset: 0; }
+.project-gallery img { transition: opacity .18s ease; }
 .media-label { position: absolute; top: .9rem; left: .9rem; z-index: 1; padding: .35rem .45rem; background: rgba(10,10,10,.78); font-size: .56rem; text-transform: uppercase; letter-spacing: .1em; }
+.media-label b { margin-left: .5rem; color: var(--yellow); font-weight: 700; }
+.gallery-controls { position: absolute; z-index: 2; right: .8rem; bottom: .8rem; display: flex; gap: .35rem; }
+.gallery-controls button { width: 38px; height: 38px; border: 1px solid rgba(245,244,239,.6); background: rgba(10,10,10,.72); transition: background .2s, color .2s, border .2s; }
+.gallery-controls button:hover, .gallery-controls button:focus { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
 .play-button { position: absolute; z-index: 2; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid var(--yellow); border-radius: 50%; width: 74px; height: 74px; background: var(--yellow); color: var(--black); font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
 .project-copy { display: flex; flex-direction: column; justify-content: space-between; padding: 1.4rem 0; }
 .project-meta { margin-bottom: 1.5rem; color: var(--yellow); font-size: .65rem; text-transform: uppercase; letter-spacing: .11em; }

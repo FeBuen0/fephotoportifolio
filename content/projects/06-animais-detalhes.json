@@ -1,0 +1,24 @@
+{
+  "title": "Animais e detalhes",
+  "type": "Ensaio pessoal",
+  "order": 6,
+  "isExample": false,
+  "media": {
+    "mode": "images", "youtubeId": "", "images": [
+      { "image": "/images/portfolio/dsc00673.jpg", "alt": "Flor amarela em detalhe" },
+      { "image": "/images/portfolio/dsc01331.jpg", "alt": "Gato olhando para a câmera" },
+      { "image": "/images/portfolio/dsc01381.jpg", "alt": "Gato em luz lateral" },
+      { "image": "/images/portfolio/dsc01517.jpg", "alt": "Gato descansando sobre uma cama" },
+      { "image": "/images/portfolio/dsc03924.jpg", "alt": "Pássaro em preto e branco sobre fio" },
+      { "image": "/images/portfolio/dsc04058.jpg", "alt": "Pássaro em fundo verde desfocado" },
+      { "image": "/images/portfolio/dsc04342.jpg", "alt": "Cachorro dálmata em retrato" },
+      { "image": "/images/portfolio/dsc04623.jpg", "alt": "Pessoa interagindo com cachorro" },
+      { "image": "/images/portfolio/dsc04630.jpg", "alt": "Pessoa e cachorro em ambiente externo" }
+    ]
+  },
+  "description": {
+    "challenge": "Encontrar expressão e textura em cenas que não podem ser inteiramente dirigidas.",
+    "role": "Fotografia de observação e tratamento de cor.",
+    "result": "Uma coleção de momentos silenciosos, próximos e espontâneos."
+  }
+}

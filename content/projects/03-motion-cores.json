@@ -1,21 +1,23 @@
 {
-  "title": "Cor em movimento",
+  "title": "Clube do Dente — Motion 02",
   "type": "Motion",
   "order": 3,
-  "isExample": true,
+  "isExample": false,
   "media": {
-    "mode": "images",
+    "mode": "video",
     "youtubeId": "",
+    "video": "/images/portfolio/clubdente-motion-02.mp4",
+    "poster": "/images/portfolio/dsc01381.jpg",
     "images": [
       {
-        "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1600&q=80",
-        "alt": "Composição gráfica colorida — imagem de exemplo"
+        "image": "/images/portfolio/dsc01381.jpg",
+        "alt": "Gato em luz natural"
       }
     ]
   },
   "description": {
-    "challenge": "Criar movimento para uma linguagem visual simples, deixando a identidade reconhecível em poucos segundos.",
-    "role": "Direção de arte, animação, edição e finalização.",
-    "result": "Uma peça limpa e dinâmica, pensada para chamar atenção sem sobrecarregar a mensagem."
+    "challenge": "Criar uma segunda peça de motion para a comunicação digital da Clube do Dente.",
+    "role": "Motion design e edição.",
+    "result": "Vídeo finalizado para uso em redes sociais."
   }
 }

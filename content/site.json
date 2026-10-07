@@ -1,11 +1,11 @@
 {
   "intro": "Fotógrafo, Videomaker, Editor e Motion Designer",
   "backgrounds": {
-    "hero": "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2000&q=80",
-    "projects": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=2000&q=80",
-    "work": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=2000&q=80",
-    "about": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=2000&q=80",
-    "contact": "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=2000&q=80"
+    "hero": "/images/portfolio/dsc00093-edit.jpg",
+    "projects": "/images/portfolio/dsc03819.jpg",
+    "work": "/images/portfolio/dsc02465.jpg",
+    "about": "/images/portfolio/dsc00134.jpg",
+    "contact": "/images/portfolio/dsc03352.jpg"
   },
   "about": [
     "Sou Felipe Bueno, fotógrafo, videomaker, editor e motion designer de Curitiba.",
@@ -28,6 +28,6 @@
   "seo": {
     "title": "Felipe Bueno — Foto, Vídeo e Motion",
     "description": "Portfólio de Felipe Bueno — fotógrafo, videomaker, editor e motion designer de Curitiba.",
-    "shareImage": "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=82"
+    "shareImage": "https://fephotos.com.br/images/portfolio/dsc03819.jpg"
   }
 }

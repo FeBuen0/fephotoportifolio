@@ -1,0 +1,19 @@
+{
+  "title": "Observação urbana",
+  "type": "Ensaio pessoal",
+  "order": 7,
+  "isExample": false,
+  "media": {
+    "mode": "images", "youtubeId": "", "images": [
+      { "image": "/images/portfolio/dsc00134.jpg", "alt": "Casal em momento espontâneo" },
+      { "image": "/images/portfolio/dsc00688.jpg", "alt": "Pessoa em rua ao entardecer" },
+      { "image": "/images/portfolio/dsc01186.jpg", "alt": "Bandeira dos Estados Unidos contra céu azul" },
+      { "image": "/images/portfolio/dsc03819.jpg", "alt": "Mural em paisagem urbana" }
+    ]
+  },
+  "description": {
+    "challenge": "Registrar lugares e pessoas com atenção ao que acontece entre uma cena e outra.",
+    "role": "Fotografia documental e seleção de imagens.",
+    "result": "Imagens guiadas por cor, luz e situações encontradas no caminho."
+  }
+}

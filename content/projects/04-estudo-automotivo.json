@@ -1,0 +1,22 @@
+{
+  "title": "Estudo automotivo",
+  "type": "Ensaio pessoal",
+  "order": 4,
+  "isExample": false,
+  "media": {
+    "mode": "images", "youtubeId": "", "images": [
+      { "image": "/images/portfolio/dsc00859.jpg", "alt": "Roda de carro amarelo em detalhe" },
+      { "image": "/images/portfolio/dsc00861.jpg", "alt": "Detalhe frontal de carro amarelo" },
+      { "image": "/images/portfolio/dsc00868.jpg", "alt": "Carro amarelo estacionado" },
+      { "image": "/images/portfolio/dsc03317.jpg", "alt": "Carro antigo em ambiente externo" },
+      { "image": "/images/portfolio/dsc03326.jpg", "alt": "Interior de carro antigo" },
+      { "image": "/images/portfolio/dsc03350.jpg", "alt": "Carro antigo visto por trás" },
+      { "image": "/images/portfolio/dsc03352.jpg", "alt": "Carro antigo com luz de fim de tarde" }
+    ]
+  },
+  "description": {
+    "challenge": "Registrar forma, textura e cor de carros sem reduzir o ensaio a um catálogo técnico.",
+    "role": "Fotografia, enquadramento e tratamento de cor.",
+    "result": "Uma série que alterna detalhes, contexto e sensação de movimento."
+  }
+}

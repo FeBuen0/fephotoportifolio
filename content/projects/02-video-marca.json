@@ -1,21 +1,23 @@
 {
-  "title": "Ritmo de marca",
-  "type": "Vídeo",
+  "title": "Clube do Dente — Motion 01",
+  "type": "Motion",
   "order": 2,
-  "isExample": true,
+  "isExample": false,
   "media": {
-    "mode": "youtube",
+    "mode": "video",
     "youtubeId": "Scxs7L0vhZ4",
+    "video": "/images/portfolio/clubdente-motion-01.mp4",
+    "poster": "/images/portfolio/dsc00673.jpg",
     "images": [
       {
-        "image": "https://i.ytimg.com/vi/Scxs7L0vhZ4/hqdefault.jpg",
-        "alt": "Capa de vídeo de exemplo"
+        "image": "/images/portfolio/dsc00673.jpg",
+        "alt": "Flor amarela fotografada em detalhe"
       }
     ]
   },
   "description": {
-    "challenge": "Traduzir a atmosfera e a energia de uma marca em um vídeo curto para redes sociais.",
-    "role": "Conceito, captação, edição, cor e adaptação de formato.",
-    "result": "Um filme objetivo, com cortes e cor a serviço da identidade da marca."
+    "challenge": "Criar uma peça de motion para a comunicação digital da Clube do Dente.",
+    "role": "Motion design e edição.",
+    "result": "Vídeo finalizado para uso em redes sociais."
   }
 }
