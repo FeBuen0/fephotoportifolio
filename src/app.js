@@ -45,6 +45,7 @@ function renderContacts(contacts) {
 }
 
 function thumbnailFor(project) {
+  if (project.media?.mode === 'video' && project.media?.poster) return project.media.poster;
   if (project.media?.images?.[0]?.image) return project.media.images[0].image;
   if (project.media?.youtubeId) return `https://i.ytimg.com/vi/${project.media.youtubeId}/hqdefault.jpg`;
   return '';
