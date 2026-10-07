@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Seleção de trabalhos de Felipe Bueno." />
+    <meta name="theme-color" content="#0A0A0A" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <title>Trabalhos — Felipe Bueno</title>
+  </head>
+  <body class="works-page">
+    <header class="site-header works-header">
+      <a class="brand" href="../" aria-label="Voltar ao início">FB<span>.</span></a>
+      <a class="header-contact" href="../#contato">Contato <span aria-hidden="true">↗</span></a>
+    </header>
+    <main class="works-main">
+      <section class="works-intro" aria-labelledby="works-title">
+        <p class="eyebrow"><span>02</span> Seleção</p>
+        <h1 id="works-title">Trabalhos</h1>
+        <p>Foto, vídeo e motion.</p>
+      </section>
+      <nav id="work-filters" class="project-filters works-filters" aria-label="Filtrar trabalhos"></nav>
+      <section id="works-stage" class="works-stage" aria-live="polite"><p class="loading">Carregando trabalhos…</p></section>
+      <nav class="project-navigation works-navigation" aria-label="Navegar entre projetos">
+        <div id="project-thumbnails" class="project-thumbnails" aria-label="Selecionar projeto"></div>
+        <div class="project-arrows">
+          <button id="previous-project" class="icon-button" type="button" aria-label="Projeto anterior">←</button>
+          <button id="next-project" class="icon-button" type="button" aria-label="Próximo projeto">→</button>
+        </div>
+      </nav>
+    </main>
+    <a class="floating-contact" href="../#contato">Contato <span aria-hidden="true">↗</span></a>
+    <script src="app.js" defer></script>
+  </body>
+</html>

@@ -219,7 +219,7 @@ async function initialise() {
   }
 }
 
-document.querySelectorAll('.filter').forEach((button) => button.addEventListener('click', () => {
+document.querySelectorAll('.filter[data-filter]').forEach((button) => button.addEventListener('click', () => {
   document.querySelectorAll('.filter').forEach((item) => item.classList.toggle('is-selected', item === button));
   applyFilter(button.dataset.filter);
 }));

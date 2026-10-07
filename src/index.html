@@ -25,7 +25,7 @@
     <header class="site-header">
       <a class="brand" href="#inicio" aria-label="Voltar ao início">FB<span>.</span></a>
       <nav aria-label="Navegação principal">
-        <a href="#projetos">Projetos</a>
+        <a href="trabalhos/">Projetos</a>
         <a href="#processo">Processo</a>
         <a href="#sobre">Sobre</a>
       </nav>
@@ -38,9 +38,9 @@
           <p class="eyebrow"><span>01</span> Curitiba, BR <i></i> Disponível para projetos</p>
           <h1 id="hero-title">Felipe Bueno</h1>
           <p id="hero-subtitle" class="hero-subtitle">Fotógrafo, Videomaker,<br />Editor e Motion Designer</p>
-          <a class="scroll-cue" href="#projetos">Ver projetos <span aria-hidden="true">↓</span></a>
+          <a class="scroll-cue" href="trabalhos/">Ver projetos <span aria-hidden="true">↓</span></a>
         </div>
-        <p class="photo-note">Foto de fundo: exemplo — trocar no painel</p>
+        <p class="photo-note">Autorretrato · Felipe Bueno</p>
       </section>
 
       <section class="section section-projects" id="projetos" data-background="projects" aria-labelledby="projects-title">
@@ -50,12 +50,13 @@
             <h2 id="projects-title">Projetos</h2>
           </div>
           <div class="project-filters reveal" aria-label="Filtrar projetos">
-            <button class="filter is-selected" type="button" data-filter="all">Todos</button>
-            <button class="filter" type="button" data-filter="Ensaio pessoal">Ensaio pessoal</button>
-            <button class="filter" type="button" data-filter="Ensaio para marcas">Ensaio para marcas</button>
-            <button class="filter" type="button" data-filter="Vídeo">Vídeo</button>
-            <button class="filter" type="button" data-filter="Motion">Motion</button>
+            <a class="filter" href="trabalhos/?tipo=Ensaio%20pessoal">Ensaio pessoal</a>
+            <a class="filter" href="trabalhos/?tipo=Ensaio%20para%20marcas">Ensaio para marcas</a>
+            <a class="filter" href="trabalhos/?tipo=V%C3%ADdeo">Vídeo</a>
+            <a class="filter" href="trabalhos/?tipo=Motion">Motion</a>
+            <a class="filter is-selected" href="trabalhos/?tipo=all">Todos</a>
           </div>
+          <a class="projects-page-link" href="trabalhos/">Abrir todos os trabalhos <span aria-hidden="true">↗</span></a>
           <div id="project-stage" class="project-stage reveal" aria-live="polite">
             <p class="loading">Carregando projetos…</p>
           </div>
