@@ -204,3 +204,11 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
 }
 @media (min-width: 1000px) { .section { padding-left: 4rem; padding-right: 4rem; } .site-header { padding-left: 4rem; padding-right: 4rem; } .project-card { gap: 4rem; } .project-media { min-height: 500px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+
+@media (hover: hover) and (pointer: fine) {
+  .site-header > .menu-toggle { display: none; }
+  .site-header nav { position: static; display: flex; flex-direction: row; align-items: center; padding: 0; background: transparent; opacity: 1; pointer-events: auto; transform: none; }
+  .site-header nav a { color: inherit; font-family: var(--sans); font-size: .72rem; line-height: 1.5; letter-spacing: .08em; text-transform: uppercase; }
+  .site-header nav .menu-contact { display: none; }
+  .header-contact { display: block; }
+}
