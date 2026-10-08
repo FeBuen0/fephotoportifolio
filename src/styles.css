@@ -181,7 +181,7 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
 }
 @media (max-width: 699px) {
   body.menu-open { overflow: hidden; }
-  .site-header { justify-content: flex-start; }
+  .site-header { justify-content: flex-start; backdrop-filter: none; }
   .brand { position: relative; z-index: 12; }
   .menu-toggle { position: relative; z-index: 12; }
   .header-contact { margin-left: auto; position: relative; z-index: 12; }
@@ -190,7 +190,8 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
   .site-header nav a { color: var(--white); font-family: var(--serif); font-size: clamp(2.4rem, 11vw, 4rem); line-height: 1; letter-spacing: -.045em; text-transform: none; }
   .site-header nav .menu-contact { display: block; margin-top: auto; color: var(--yellow); font-family: var(--sans); font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
   .header-contact { display: none; }
-  .background-layer[data-background-layer="hero"] { background-size: auto 112%; background-position: 48% 36%; }
+  body.menu-open .floating-contact { display: none; }
+  .background-layer[data-background-layer="hero"] { background-size: auto 100%; background-position: 50% 36%; }
   .hero { min-height: 100svh; }
   .hero-content { padding-top: 18svh; }
   .section-projects { padding-bottom: 7rem; }
