@@ -14,6 +14,7 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+# Reexecutar a publicação quando esta configuração for atualizada.
 jobs:
   deploy:
     environment:
