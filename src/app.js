@@ -162,6 +162,25 @@ function bindFeaturedNavigation() {
   });
 }
 
+function bindMobileMenu() {
+  const toggle = $('.menu-toggle');
+  const menu = $('#site-menu');
+  const closeMenu = () => {
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Abrir menu');
+    menu.classList.remove('is-open');
+    document.body.classList.remove('menu-open');
+  };
+  toggle.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Abrir menu' : 'Fechar menu');
+    menu.classList.toggle('is-open', !isOpen);
+    document.body.classList.toggle('menu-open', !isOpen);
+  });
+  menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+}
+
 async function initialise() {
   try {
     const [siteResponse, projectsResponse] = await Promise.all([fetch('data/site.json'), fetch('data/projects.json')]);
@@ -178,6 +197,7 @@ async function initialise() {
     renderContacts(state.site.contacts);
     renderFeaturedProject();
     bindFeaturedNavigation();
+    bindMobileMenu();
     observeSections();
   } catch (error) {
     $('#project-stage').innerHTML = '<p class="loading">Erro ao carregar os projetos. Tente atualizar a página.</p>';
