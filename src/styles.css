@@ -39,7 +39,13 @@ button { color: inherit; cursor: pointer; }
 .site-header nav a:hover, .site-header nav a:focus { opacity: 1; color: var(--yellow); }
 .menu-contact { display: none; }
 .header-contact { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; }
-.header-contact span { color: var(--yellow); }
+.header-contact .arrow { color: var(--yellow); }
+.arrow { position: relative; display: inline-block; width: 1em; height: 1em; margin-left: .3em; color: currentColor; vertical-align: -.1em; }
+.arrow::before { content: ""; position: absolute; top: 50%; left: 0; width: 100%; border-top: 1.5px solid currentColor; }
+.arrow::after { content: ""; position: absolute; top: 50%; right: 0; width: .42em; height: .42em; border: solid currentColor; border-width: 1.5px 1.5px 0 0; transform: translateY(-50%) rotate(45deg); }
+.arrow-up-right { transform: rotate(-45deg); }
+.arrow-down { transform: rotate(90deg); }
+.arrow-left { transform: rotate(180deg); }
 .section { position: relative; z-index: 2; display: grid; align-items: center; padding: clamp(4.5rem, 10vw, 7rem) 1.2rem; border-bottom: 1px solid var(--line); }
 .section-inner { width: min(100%, 1120px); margin: 0 auto; }
 .narrow { max-width: 1120px; }
@@ -62,16 +68,16 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
 .is-hero-active .site-header { border-color: var(--line); background: rgba(10,10,10,.48); color: var(--white); }
 .hero-subtitle { max-width: 470px; margin-bottom: 2.4rem; font-size: clamp(1.1rem, 4vw, 1.55rem); line-height: 1.25; }
 .scroll-cue { display: inline-flex; gap: .8rem; align-items: center; border-bottom: 1px solid var(--yellow); padding-bottom: .5rem; font-size: .78rem; text-transform: uppercase; letter-spacing: .09em; }
-.scroll-cue span { color: var(--yellow); font-size: 1.2rem; }
+.scroll-cue .arrow { margin-left: .15rem; color: var(--yellow); font-size: 1rem; }
 .section-top { margin-bottom: 2.3rem; }
 .section-projects { min-height: 100svh; padding-top: clamp(3.5rem, 7vw, 5rem); padding-bottom: 8.5rem; background: rgba(10,10,10,.7); }
 .project-filters { display: flex; gap: .45rem; overflow-x: auto; padding-bottom: .8rem; margin: 0 -1.2rem 1.5rem; padding-left: 1.2rem; scrollbar-width: thin; }
 .filter { flex: 0 0 auto; border: 1px solid var(--line); border-radius: 999px; padding: .55rem .8rem; background: rgba(10,10,10,.25); font-size: .67rem; text-transform: uppercase; letter-spacing: .06em; transition: background .2s, color .2s, border-color .2s; }
 .filter:hover, .filter:focus, .filter.is-selected { border-color: var(--yellow); background: var(--yellow); color: var(--black); }
 .projects-page-link { display: inline-flex; gap: .6rem; align-items: center; margin: 0 0 1.5rem; border-bottom: 1px solid var(--yellow); padding-bottom: .45rem; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.projects-page-link span { color: var(--yellow); font-size: 1rem; }
+.projects-page-link .arrow { color: var(--yellow); font-size: 1rem; }
 .projects-page-link--featured { margin-top: -.45rem; margin-bottom: 2rem; border: 1px solid var(--yellow); padding: .9rem 1rem; background: var(--yellow); color: var(--black); font-size: .72rem; transition: background .2s, color .2s; }
-.projects-page-link--featured span { color: currentColor; font-size: 1.1rem; }
+.projects-page-link--featured .arrow { color: currentColor; font-size: 1rem; }
 .projects-page-link--featured:hover, .projects-page-link--featured:focus { background: transparent; color: var(--yellow); }
 .project-stage { min-height: 0; display: grid; align-items: stretch; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .project-card { display: grid; grid-template-columns: 1fr; }
