@@ -31,14 +31,14 @@ function renderWork(steps) {
 
 function emailLink(email) {
   const [user, domain] = email.split('@');
-  return `<a class="contact-link email-link" data-user="${escapeHtml(user)}" data-domain="${escapeHtml(domain)}" href="#contato"><span>E-mail</span><small>carregar endereço ↗</small></a>`;
+  return `<a class="contact-link email-link" data-user="${escapeHtml(user)}" data-domain="${escapeHtml(domain)}" href="#contato"><span>E-mail</span><small>carregar endereço <i class="arrow arrow-up-right" aria-hidden="true"></i></small></a>`;
 }
 
 function renderContacts(contacts) {
   $('#contact-links').innerHTML = [
     emailLink(contacts.email),
-    `<a class="contact-link" href="${escapeHtml(contacts.whatsapp)}" target="_blank" rel="noopener noreferrer"><span>WhatsApp</span><small>abrir conversa ↗</small></a>`,
-    `<a class="contact-link" href="${escapeHtml(contacts.instagramUrl)}" target="_blank" rel="noopener noreferrer"><span>${escapeHtml(contacts.instagram)}</span><small>ver perfil ↗</small></a>`
+    `<a class="contact-link" href="${escapeHtml(contacts.whatsapp)}" target="_blank" rel="noopener noreferrer"><span>WhatsApp</span><small>abrir conversa <i class="arrow arrow-up-right" aria-hidden="true"></i></small></a>`,
+    `<a class="contact-link" href="${escapeHtml(contacts.instagramUrl)}" target="_blank" rel="noopener noreferrer"><span>${escapeHtml(contacts.instagram)}</span><small>ver perfil <i class="arrow arrow-up-right" aria-hidden="true"></i></small></a>`
   ].join('');
   $('.email-link').addEventListener('click', (event) => {
     event.preventDefault();
@@ -80,7 +80,7 @@ function renderFeaturedProject() {
       <p class="project-meta">Seleção completa</p>
       <h3>Ver todos os projetos</h3>
       <p>Ensaios, vídeos e motions organizados por tema.</p>
-      <a class="projects-page-link" href="trabalhos/">Abrir todos os projetos <span aria-hidden="true">↗</span></a>
+      <a class="projects-page-link" href="trabalhos/">Abrir todos os projetos <span class="arrow arrow-up-right" aria-hidden="true"></span></a>
     </article>`;
     counter.textContent = 'Seleção completa';
     next.setAttribute('aria-label', 'Fim da seleção');
