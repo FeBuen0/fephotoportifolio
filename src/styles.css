@@ -32,7 +32,7 @@ button { color: inherit; cursor: pointer; }
 .menu-toggle span { display: block; width: 21px; height: 1px; background: currentColor; transition: transform .25s ease; }
 .menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
 .menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
-.brand { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 128px; min-height: 44px; background: transparent; }
+.brand { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 58px; min-height: 44px; background: transparent; }
 .brand-logo { display: block; width: 100%; height: auto; overflow: hidden; }
 .brand:focus-visible { outline: 2px solid var(--yellow); outline-offset: 5px; }
 .site-header nav { display: none; gap: 1.25rem; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; }
@@ -178,7 +178,7 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
 .gallery-image.is-active { z-index: 1; opacity: 1; }
 .project-gallery .media-label, .project-gallery .gallery-controls { z-index: 3; }
 @media (min-width: 700px) {
-  .brand { width: 144px; }
+  .brand { width: 66px; }
   .site-header { padding: 1.25rem 2.5rem; } .menu-toggle { display: none; } .site-header nav { display: flex; } .section { padding: clamp(5.5rem, 9vw, 8rem) 2.5rem; } .section-projects { padding-bottom: 8rem; }
   .project-filters { margin-right: 0; margin-left: 0; padding-left: 0; }
   .project-card { grid-template-columns: minmax(0, 1.15fr) minmax(270px, .85fr); gap: 2.2rem; } .project-media { min-height: 430px; } .project-copy { padding: .2rem 0; }
