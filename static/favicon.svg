@@ -1,5 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#0a0a0a"/>
-  <text x="8" y="43" fill="#f5f4ef" font-family="Arial, sans-serif" font-size="31" font-weight="700" letter-spacing="-3">FB</text>
-  <circle cx="53" cy="40" r="4.5" fill="#ffd60a"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="408" height="408" viewBox="0 0 408 408"><title>Símbolo Felipe Bueno</title><rect width="408" height="408" fill="#000"/><g fill="#fff200">
+<circle cx="112" cy="126" r="78"/><circle cx="296" cy="126" r="78"/>
+<path d="M 184 122 H 224 V 130 H 184 Z"/>
+<path d="M 44 66 Q 112 17 180 66 Z"/><path d="M 228 66 Q 296 17 364 66 Z"/>
+<path d="M 65 250 L 164 221 Q 169 219 174 224 L 204 250 Z"/>
+<path d="M 204 250 L 234 224 Q 239 219 244 221 L 343 250 Z"/>
+<path d="M 170 294 L 204 281 L 238 294 L 204 333 Z"/>
+</g></svg>
