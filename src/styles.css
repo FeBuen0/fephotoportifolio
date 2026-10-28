@@ -178,6 +178,13 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
 .project-media-grid { display: grid; gap: 1rem; }
 .project-photo { margin: 0; background: transparent; }
 .project-photo img { display: block; width: 100%; height: auto; }
+.project-photo img, .featured-project-media img { cursor: zoom-in; }
+.project-photo img:focus-visible, .featured-project-media img:focus-visible { outline: 2px solid var(--yellow); outline-offset: 4px; }
+html.photo-viewer-open { overflow: hidden; }
+.photo-viewer { position: fixed; inset: 0; width: 100vw; max-width: none; height: 100vh; height: 100dvh; max-height: none; margin: 0; border: 0; padding: clamp(12px, 2vw, 28px); background: rgba(0,0,0,.97); cursor: zoom-out; overscroll-behavior: contain; }
+.photo-viewer[open] { display: grid; place-items: center; }
+.photo-viewer::backdrop { background: #000; }
+.photo-viewer img { display: block; width: auto; height: auto; max-width: 100%; max-height: calc(100vh - clamp(24px, 4vw, 56px)); max-height: calc(100dvh - clamp(24px, 4vw, 56px)); object-fit: contain; }
 .motion-media { position: relative; background: #000; }
 .motion-media video { display: block; width: 100%; max-height: 84svh; background: #000; }
 .motion-restart { position: absolute; right: 1rem; bottom: 1rem; z-index: 2; display: inline-flex; align-items: center; gap: .5rem; border: 1px solid var(--yellow); padding: .7rem .85rem; background: var(--yellow); color: var(--black); font-size: .67rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
