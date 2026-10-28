@@ -8,12 +8,41 @@
     "youtubeId": "",
     "images": [
       {
-        "image": "/images/portfolio/dsc00026-edit-2.jpg", "alt": "Retrato em ambiente vermelho" },
-      { "image": "/images/portfolio/dsc00093-edit.jpg", "alt": "Retrato de pessoa com roupa social azul" },
-      { "image": "/images/portfolio/dsc00142.jpg", "alt": "Retrato de pessoa em ambiente escuro" },
-      { "image": "/images/portfolio/dsc00150-edit.jpg", "alt": "Retrato em preto e branco" },
-      { "image": "/images/portfolio/dsc00237-edit-2-3.jpg", "alt": "Retrato lateral de pessoa" },
-      { "image": "/images/portfolio/dsc00318.jpg", "alt": "Retrato em luz baixa" }
+        "image": "/images/portfolio/dsc00026-edit-2.jpg",
+        "alt": "Retrato em ambiente vermelho"
+      },
+      {
+        "image": "/images/portfolio/dsc00150-edit.jpg",
+        "alt": "Retrato em preto e branco"
+      },
+      {
+        "image": "/images/portfolio/dsc00093-edit.jpg",
+        "alt": "Retrato de pessoa com roupa social azul"
+      },
+      {
+        "image": "/images/portfolio/dsc00142.jpg",
+        "alt": "Retrato de pessoa em ambiente escuro"
+      },
+      {
+        "image": "/images/portfolio/dsc00237-edit-2-3.jpg",
+        "alt": "Retrato lateral de pessoa"
+      },
+      {
+        "image": "/images/portfolio/dsc00318.jpg",
+        "alt": "Retrato em luz baixa"
+      },
+      {
+        "image": "/images/uploads/foto-1793226618959-8d93932497f54ac2.webp",
+        "alt": "mimico"
+      },
+      {
+        "image": "/images/uploads/foto-1793226619447-7a1ab2076b0f4ba4.webp",
+        "alt": "mimico"
+      },
+      {
+        "image": "/images/uploads/foto-1793226620040-36c8f3193736484c.webp",
+        "alt": "retrato fantasia"
+      }
     ]
   },
   "description": {

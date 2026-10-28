@@ -4,14 +4,49 @@
   "order": 4,
   "isExample": false,
   "media": {
-    "mode": "images", "youtubeId": "", "images": [
-      { "image": "/images/portfolio/dsc00859.jpg", "alt": "Roda de carro amarelo em detalhe" },
-      { "image": "/images/portfolio/dsc00861.jpg", "alt": "Detalhe frontal de carro amarelo" },
-      { "image": "/images/portfolio/dsc00868.jpg", "alt": "Carro amarelo estacionado" },
-      { "image": "/images/portfolio/dsc03317.jpg", "alt": "Carro antigo em ambiente externo" },
-      { "image": "/images/portfolio/dsc03326.jpg", "alt": "Interior de carro antigo" },
-      { "image": "/images/portfolio/dsc03350.jpg", "alt": "Carro antigo visto por trás" },
-      { "image": "/images/portfolio/dsc03352.jpg", "alt": "Carro antigo com luz de fim de tarde" }
+    "mode": "images",
+    "youtubeId": "",
+    "images": [
+      {
+        "image": "/images/portfolio/dsc00859.jpg",
+        "alt": "Roda de carro amarelo em detalhe"
+      },
+      {
+        "image": "/images/portfolio/dsc00861.jpg",
+        "alt": "Detalhe frontal de carro amarelo"
+      },
+      {
+        "image": "/images/portfolio/dsc00868.jpg",
+        "alt": "Carro amarelo estacionado"
+      },
+      {
+        "image": "/images/portfolio/dsc03317.jpg",
+        "alt": "Carro antigo em ambiente externo"
+      },
+      {
+        "image": "/images/portfolio/dsc03326.jpg",
+        "alt": "Interior de carro antigo"
+      },
+      {
+        "image": "/images/portfolio/dsc03350.jpg",
+        "alt": "Carro antigo visto por trás"
+      },
+      {
+        "image": "/images/portfolio/dsc03352.jpg",
+        "alt": "Carro antigo com luz de fim de tarde"
+      },
+      {
+        "image": "/images/uploads/foto-1793226704918-e330d6c54ed156a4.webp",
+        "alt": "DSC06175"
+      },
+      {
+        "image": "/images/uploads/foto-1793226705518-080432e1a146da0d.webp",
+        "alt": "DSC05936"
+      },
+      {
+        "image": "/images/uploads/foto-1793226706132-566fd454456633f0.webp",
+        "alt": "DSC06028"
+      }
     ]
   },
   "description": {

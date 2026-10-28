@@ -4,11 +4,41 @@
   "order": 5,
   "isExample": false,
   "media": {
-    "mode": "images", "youtubeId": "", "images": [
-      { "image": "/images/portfolio/dsc02332.jpg", "alt": "Jogador de tênis em quadra" },
-      { "image": "/images/portfolio/dsc02465.jpg", "alt": "Bola de tênis em primeiro plano" },
-      { "image": "/images/portfolio/dsc02589.jpg", "alt": "Jogadora sacando em quadra de tênis" },
-      { "image": "/images/portfolio/dsc02655.jpg", "alt": "Jogadores vistos através da rede de tênis" }
+    "mode": "images",
+    "youtubeId": "",
+    "images": [
+      {
+        "image": "/images/portfolio/dsc02332.jpg",
+        "alt": "Jogador de tênis em quadra"
+      },
+      {
+        "image": "/images/portfolio/dsc02465.jpg",
+        "alt": "Bola de tênis em primeiro plano"
+      },
+      {
+        "image": "/images/portfolio/dsc02589.jpg",
+        "alt": "Jogadora sacando em quadra de tênis"
+      },
+      {
+        "image": "/images/portfolio/dsc02655.jpg",
+        "alt": "Jogadores vistos através da rede de tênis"
+      },
+      {
+        "image": "/images/uploads/foto-1793226775431-b50700fd1d1003d7.webp",
+        "alt": "DSC06538"
+      },
+      {
+        "image": "/images/uploads/foto-1793226776304-0d762b508b94a8ba.webp",
+        "alt": "DSC06486"
+      },
+      {
+        "image": "/images/uploads/foto-1793226777084-af141c17521fbdfc.webp",
+        "alt": "DSC06517"
+      },
+      {
+        "image": "/images/uploads/foto-1793226777792-468504c68694480e.webp",
+        "alt": "DSC06367"
+      }
     ]
   },
   "description": {
