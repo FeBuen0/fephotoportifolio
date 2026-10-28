@@ -4,9 +4,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Felipe Bueno — Painel</title>
+    <meta name="referrer" content="same-origin" />
+    <title>Fephotos — Painel</title>
+    <link rel="stylesheet" href="login.css" />
   </head>
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <main id="login" class="login-screen">
+      <section class="login-card" aria-labelledby="login-title">
+        <img class="brand" src="../images/fephotos-simbolo.png" alt="Fephotos" width="48" height="48" />
+        <p class="eyebrow">FEPHOTOS / PAINEL</p>
+        <h1 id="login-title">Entrar</h1>
+        <p class="intro">Gerencie suas fotos e projetos.</p>
+        <form id="login-form">
+          <label for="username">Usuário</label>
+          <input id="username" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="80" required />
+          <label for="password">Senha</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" maxlength="256" required />
+          <p id="login-message" class="message" role="status" aria-live="polite"></p>
+          <button id="login-submit" type="submit" disabled>Carregando…</button>
+        </form>
+        <a class="back-link" href="../">Voltar ao site <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+    <noscript>Ative o JavaScript para entrar no painel.</noscript>
+    <script src="login.js" defer></script>
   </body>
 </html>

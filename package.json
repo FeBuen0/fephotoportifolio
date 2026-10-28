@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "build": "node build.mjs",
-    "start": "npx serve dist"
+    "start": "npx serve dist",
+    "test": "node --test test/*.test.mjs",
+    "admin:credentials": "node scripts/admin-credentials.mjs"
   }
 }

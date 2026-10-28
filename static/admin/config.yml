@@ -1,8 +1,9 @@
 backend:
-  name: github
-  repo: FeBuen0/fephotoportifolio
+  name: fephotos
   branch: main
-  use_graphql: true
+  proxy_url: /api/admin/cms
+
+locale: "pt"
 
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
@@ -36,13 +37,13 @@ collections:
               - { label: "Fotos", value: "images" }
               - { label: "Vídeo do YouTube", value: "youtube" }
               - { label: "Vídeo MP4", value: "video" }
-              - { label: "ID do YouTube", name: "youtubeId", widget: "string", required: false, hint: "Só o ID após v= na URL. Ex.: dQw4w9WgXcQ" }
+          - { label: "ID do YouTube", name: "youtubeId", widget: "string", required: false, hint: "Só o ID após v= na URL. Ex.: dQw4w9WgXcQ" }
           - { label: "Arquivo de vídeo MP4", name: "video", widget: "file", required: false, hint: "Use para vídeos enviados diretamente ao site." }
           - { label: "Capa do vídeo", name: "poster", widget: "image", required: false }
           - label: "Imagens"
             name: "images"
             widget: "list"
-            min: 1
+            required: false
             fields:
               - { label: "Imagem", name: "image", widget: "image" }
               - { label: "Texto alternativo", name: "alt", widget: "string", hint: "Descreva a imagem para leitores de tela." }
