@@ -1,4 +1,4 @@
-import { GitHubStore, REPOSITORY, createVault, unlockVault, validateVault, newGroup, randomId } from './core.mjs?v=acesso-direto-2';
+import { GitHubStore, REPOSITORY, createVault, unlockVault, validateVault, newGroup, randomId } from './core.mjs?v=github-fetch-3';
 import { ADMIN_USERNAME, verifyLogin } from './login.mjs?v=acesso-direto-2';
 import { readDraft, saveDraft, clearDraft } from './drafts.mjs';
 

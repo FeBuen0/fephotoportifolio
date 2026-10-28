@@ -94,7 +94,11 @@ async function mapLimit(items, limit, fn) {
 export class GitHubStore {
   #token;
   #fetch;
-  constructor(token, fetchImpl = fetch) { this.#token = token; this.#fetch = fetchImpl; }
+  constructor(token, fetchImpl = globalThis.fetch) {
+    this.#token = token;
+    // Window.fetch requires the browser global, not this store, as its receiver.
+    this.#fetch = fetchImpl.bind(globalThis);
+  }
   close() { this.#token = ''; }
   async request(path, { method = 'GET', body } = {}) {
     if (!this.#token) fail('Entre novamente para continuar.', 401);

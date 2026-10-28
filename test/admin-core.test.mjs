@@ -79,6 +79,18 @@ test('only the expected GitHub account with repository write access is accepted'
   await assert.rejects(fakeGithub({ user: 'someone-else' }).store.authenticate(), { status: 403 });
   await assert.rejects(fakeGithub({ push: false }).store.authenticate(), { status: 403 });
 });
+test('GitHub requests preserve the browser fetch receiver during authentication', async () => {
+  let calls = 0;
+  async function browserFetch(url) {
+    if (this !== globalThis) throw new TypeError("Failed to execute 'fetch' on 'Window': Illegal invocation");
+    calls++;
+    return Response.json(url.endsWith('/user') ? { login: 'FeBuen0' } : { permissions: { push: true } });
+  }
+  const client = new GitHubStore(TOKEN, browserFetch);
+  assert.equal((await client.authenticate()).name, 'FeBuen0');
+  assert.equal(calls, 2);
+  client.close();
+});
 test('credential requests are restricted to GitHub and the fixed repository', async () => {
   const client = fakeGithub().store;
   await assert.rejects(client.request('/repos/another/repo'), /Endereço não permitido/);
