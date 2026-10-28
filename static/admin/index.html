@@ -8,13 +8,14 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data: https://raw.githubusercontent.com; connect-src 'self' https://api.github.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'" />
   <title>Fephotos — Fotos e grupos</title>
   <link rel="icon" href="../favicon.ico" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=acesso-direto-2" />
 </head>
 <body>
   <main id="login-screen" class="login-screen">
     <section class="login-card" aria-labelledby="login-title">
       <img class="login-symbol" src="../images/fephotos-simbolo.png" width="44" height="44" alt="Fephotos" />
       <p class="eyebrow">FEPHOTOS / ÁREA DE EDIÇÃO</p>
+      <div id="login-content">
       <h1 id="login-title">Seu próximo<br>trabalho começa aqui.</h1>
       <p class="muted">Entre para organizar as fotos do seu portfólio.</p>
       <form id="login-form">
@@ -25,11 +26,26 @@
         <p id="login-message" class="form-message" role="status" aria-live="polite"></p>
         <button id="login-submit" type="submit" class="primary">Entrar <span aria-hidden="true">→</span></button>
       </form>
-      <div class="access-options">
-        <button id="import-access" class="text-button" type="button">Importar arquivo de acesso</button>
-        <input id="access-file" type="file" accept="application/json,.json" hidden />
-        <details><summary>Primeiro acesso?</summary><p>Faça a configuração uma vez no seu computador. Depois, importe o arquivo de acesso e entre com o usuário e a senha escolhidos.</p><a href="primeiro-acesso.zip" download>Baixar configuração inicial</a></details>
+      <div class="access-options"><button id="reconnect" form="login-form" class="text-button" type="submit" hidden>Reconectar publicação</button><p class="access-note">No primeiro acesso, conecte a publicação aqui mesmo.</p></div>
       </div>
+      <section id="connect-publication" aria-labelledby="connect-title" hidden>
+        <h1 id="connect-title">Conecte a<br>publicação.</h1>
+        <p class="muted">Autorize o envio das fotos uma vez neste navegador. Depois, entre com seu usuário e senha.</p>
+        <ol class="connection-steps">
+          <li><a href="https://github.com/settings/personal-access-tokens/new?name=Painel%20Fephotos&amp;description=Publicar%20fotos%20e%20grupos%20do%20Fephotos&amp;target_name=FeBuen0&amp;contents=write" target="_blank" rel="noopener noreferrer">Abra a autorização no GitHub <span aria-hidden="true">↗</span></a> usando a conta <strong>FeBuen0</strong>.</li>
+          <li>Em <strong>Repository access</strong>, marque <strong>Only select repositories</strong> e escolha <strong>fephotoportifolio</strong>.</li>
+          <li>Confira <strong>Contents: Read and write</strong>, escolha a validade e clique em <strong>Generate token</strong>.</li>
+          <li>Copie a chave gerada e cole abaixo.</li>
+        </ol>
+        <form id="connect-form">
+          <label for="github-key">Chave de publicação do GitHub</label>
+          <input id="github-key" name="github-key" type="password" autocomplete="off" spellcheck="false" maxlength="1024" required />
+          <p class="access-note">A chave fica criptografada somente neste navegador e é enviada apenas ao GitHub. Em outro navegador, conecte novamente.</p>
+          <p id="connect-message" class="form-message" role="status" aria-live="polite"></p>
+          <button id="connect-submit" type="submit" class="primary">Conectar e abrir painel <span aria-hidden="true">→</span></button>
+          <button id="cancel-connect" type="button" class="text-button">Voltar ao login</button>
+        </form>
+      </section>
       <a class="back-link" href="../">Voltar ao portfólio <span aria-hidden="true">↗</span></a>
     </section>
   </main>
@@ -71,6 +87,6 @@
   <dialog id="new-group-dialog"><form method="dialog" id="new-group-form"><p class="eyebrow">UM NOVO COMEÇO</p><h2>Criar grupo</h2><label for="new-group-name">Como ele vai se chamar?</label><input id="new-group-name" maxlength="120" placeholder="Ex.: Ensaio de família" required /><p class="muted">Você poderá renomear e organizar depois.</p><div class="dialog-actions"><button class="secondary" type="button" id="cancel-new-group">Cancelar</button><button class="primary" type="submit">Criar grupo</button></div></form></dialog>
   <dialog id="confirm-dialog"><form method="dialog"><h2 id="confirm-title"></h2><p id="confirm-message" class="muted"></p><div class="dialog-actions"><button class="secondary" value="cancel">Cancelar</button><button class="primary" value="confirm" id="confirm-button">Confirmar</button></div></form></dialog>
   <noscript>Ative o JavaScript para usar o painel.</noscript>
-  <script type="module" src="app.mjs"></script>
+  <script type="module" src="app.mjs?v=acesso-direto-2"></script>
 </body>
 </html>

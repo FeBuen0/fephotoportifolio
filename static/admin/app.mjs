@@ -1,10 +1,13 @@
-import { GitHubStore, REPOSITORY, unlockVault, validateVault, newGroup, randomId } from './core.mjs';
+import { GitHubStore, REPOSITORY, createVault, unlockVault, validateVault, newGroup, randomId } from './core.mjs?v=acesso-direto-2';
+import { ADMIN_USERNAME, verifyLogin } from './login.mjs?v=acesso-direto-2';
 import { readDraft, saveDraft, clearDraft } from './drafts.mjs';
 
 const $ = selector => document.querySelector(selector);
 const ACCESS_KEY = 'fephotos.admin.access.v1';
 const basePath = location.hostname === 'febuen0.github.io' ? '/fephotoportifolio' : '';
 let vault;
+let connectionPassword = '';
+let connectionTimer;
 let store;
 let groups = [];
 let deleted = [];
@@ -290,11 +293,31 @@ async function lock(text = '') {
   if (publishing || processing) { resetIdle(); return; }
   if (dirtyCount()) await persistDraft();
   store?.close(); store = null; clearTimeout(idleTimer); clearTimeout(absoluteTimer); publishGeneration++;
+  clearConnection();
   $('#editor').hidden = true; $('#login-screen').hidden = false; $('#password').value = '';
   $('#login-message').textContent = text; $('#login-submit').disabled = false; $('#login-submit').textContent = 'Entrar';
   for (const url of objectURLs.values()) URL.revokeObjectURL(url); objectURLs.clear();
 }
 $('#logout').addEventListener('click', () => lock());
+
+function clearConnection() {
+  connectionPassword = ''; clearTimeout(connectionTimer);
+  $('#github-key').value = '';
+  $('#connect-publication').hidden = true; $('#login-content').hidden = false;
+}
+function connectionTimeout() {
+  clearTimeout(connectionTimer);
+  connectionTimer = setTimeout(() => {
+    clearConnection(); $('#login-message').textContent = 'Entre novamente para continuar a conexão.';
+  }, 15 * 60 * 1000);
+}
+function showConnection(password) {
+  connectionPassword = password;
+  $('#login-content').hidden = true; $('#connect-publication').hidden = false;
+  $('#connect-message').textContent = ''; $('#github-key').value = ''; $('#github-key').focus();
+  connectionTimeout();
+}
+$('#cancel-connect').addEventListener('click', () => { clearConnection(); $('#password').focus(); });
 
 export async function openEditor(client) {
   store = client;
@@ -315,32 +338,50 @@ export async function openEditor(client) {
 }
 $('#login-form').addEventListener('submit', async event => {
   event.preventDefault();
-  const button = $('#login-submit'); button.disabled = true; button.textContent = 'Entrando…'; $('#login-message').textContent = '';
+  const button = $('#login-submit'); button.disabled = true; $('#reconnect').disabled = true; button.textContent = 'Entrando…'; $('#login-message').textContent = '';
   let client;
   try {
     if (!crypto.subtle) throw new Error('Abra o painel pelo endereço HTTPS do seu site.');
-    if (!vault) throw new Error('Importe seu arquivo de acesso para configurar este navegador.');
-    const token = await unlockVault(vault, $('#username').value.trim(), $('#password').value); $('#password').value = '';
+    const username = $('#username').value.trim();
+    const password = $('#password').value;
+    if (!await verifyLogin(username, password)) throw new Error('Usuário ou senha incorretos.');
+    if (!vault || event.submitter?.id === 'reconnect') { showConnection(password); return; }
+    const token = await unlockVault(vault, username, password); $('#password').value = '';
     client = new GitHubStore(token); await client.authenticate(); await openEditor(client);
   } catch (error) { client?.close(); store = null; $('#login-message').textContent = error.message; }
-  finally { $('#password').value = ''; button.disabled = false; button.textContent = 'Entrar'; }
+  finally { $('#password').value = ''; button.disabled = false; $('#reconnect').disabled = false; button.textContent = 'Entrar'; }
 });
-$('#import-access').addEventListener('click', () => $('#access-file').click());
-$('#access-file').addEventListener('change', async event => {
-  const file = event.target.files[0]; event.target.value = '';
-  if (!file) return;
+$('#connect-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  const button = $('#connect-submit'); const cancel = $('#cancel-connect');
+  button.disabled = true; cancel.disabled = true; button.textContent = 'Conectando…'; $('#connect-message').textContent = '';
+  clearTimeout(connectionTimer);
+  let client;
   try {
-    if (file.size > 10000) throw new Error('Este não é um arquivo de acesso válido.');
-    const next = validateVault(JSON.parse(await file.text()));
-    vault = next;
+    if (!connectionPassword) throw new Error('Entre novamente para conectar a publicação.');
+    const token = $('#github-key').value.trim(); $('#github-key').value = '';
+    if (token.length < 20 || /\s/.test(token)) throw new Error('Cole a chave de publicação gerada no GitHub.');
+    client = new GitHubStore(token); await client.authenticate();
+    const next = await createVault(ADMIN_USERNAME, connectionPassword, token);
     let persisted = true;
-    try { localStorage.setItem(ACCESS_KEY, JSON.stringify(vault)); }
+    try { localStorage.setItem(ACCESS_KEY, JSON.stringify(next)); }
     catch { persisted = false; }
-    $('#username').value = vault.username; $('#password').focus();
-    $('#login-message').textContent = persisted ? 'Acesso importado. Entre com sua senha.' : 'Acesso importado só nesta aba. O navegador bloqueou o armazenamento. Entre com sua senha.';
-  } catch (error) { $('#login-message').textContent = error instanceof SyntaxError ? 'O arquivo não é um acesso válido.' : error.message; }
+    vault = next; $('#reconnect').hidden = false; clearConnection();
+    await openEditor(client);
+    if (!persisted) notice('Publicação conectada só nesta aba. O navegador bloqueou o armazenamento; mantenha a aba aberta até publicar.', true);
+  } catch (error) {
+    client?.close(); store = null;
+    (connectionPassword ? $('#connect-message') : $('#login-message')).textContent = error.message;
+  } finally {
+    $('#github-key').value = ''; button.disabled = false; cancel.disabled = false; button.textContent = 'Conectar e abrir painel';
+    if (connectionPassword) connectionTimeout();
+  }
 });
-try { const saved = localStorage.getItem(ACCESS_KEY); if (saved) { vault = validateVault(JSON.parse(saved)); $('#username').value = vault.username; } } catch { /* The import control remains available. */ }
+try {
+  const saved = localStorage.getItem(ACCESS_KEY);
+  if (saved) { const candidate = validateVault(JSON.parse(saved)); if (candidate.username === ADMIN_USERNAME) vault = candidate; }
+} catch { /* The owner can connect directly on this page. */ }
+$('#reconnect').hidden = !vault;
 
 $('#reload-groups').addEventListener('click', async () => {
   if (publishing || processing || !store) return;

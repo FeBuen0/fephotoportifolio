@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createVault, unlockVault, validateVault, GitHubStore, newGroup, validateGroup, REPOSITORY } from '../static/admin/core.mjs';
+import { ADMIN_USERNAME, verifyLogin } from '../static/admin/login.mjs';
 const PASSWORD = 'frase longa apenas para teste 123';
 const TOKEN = 'github_pat_fake_unit_test_1234567890';
 
@@ -20,10 +21,17 @@ test('changing the vault, username, repository, or cryptographic parameters inva
   assert.throws(() => validateVault({ ...vault, repository: 'another/repo' }));
   assert.throws(() => validateVault({ ...vault, iterations: 1 }));
 });
-test('access provisioning enforces a long password and produces independent salts and IVs', async () => {
+test('access provisioning supports the six-character owner password and produces independent salts and IVs', async () => {
   await assert.rejects(createVault('felipe', '123', TOKEN));
+  const short = await createVault(ADMIN_USERNAME, '864291', TOKEN);
+  assert.equal(await unlockVault(short, ADMIN_USERNAME, '864291'), TOKEN);
   const a = await createVault('felipe', PASSWORD, TOKEN); const b = await createVault('felipe', PASSWORD, TOKEN);
   assert.notEqual(a.salt, b.salt); assert.notEqual(a.iv, b.iv); assert.notEqual(a.ciphertext, b.ciphertext);
+});
+test('preset login rejects a different account and incorrect passwords', async () => {
+  assert.equal(await verifyLogin('other-user', PASSWORD), false);
+  assert.equal(await verifyLogin(ADMIN_USERNAME, '000000'), false);
+  assert.equal(await verifyLogin(ADMIN_USERNAME, ''), false);
 });
 test('group creation keeps the current public portfolio schema and validates photos', () => {
   const group = newGroup('Viagem ao Pantanal', 8);

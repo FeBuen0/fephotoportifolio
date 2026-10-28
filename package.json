@@ -5,7 +5,6 @@
   "scripts": {
     "build": "node build.mjs",
     "start": "npx serve dist",
-    "test": "node --test test/*.test.mjs",
-    "build:access": "python3 scripts/build-access-setup.py"
+    "test": "node --test test/*.test.mjs"
   }
 }

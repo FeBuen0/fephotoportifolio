@@ -141,6 +141,9 @@ h2 { margin-bottom: 0; font-size: clamp(3.5rem, 13vw, 7rem); }
 .contact-meta { margin: 2.2rem 0 0; color: var(--muted); font-size: .63rem; line-height: 1.7; letter-spacing: .06em; text-transform: uppercase; }
 .floating-contact { position: fixed; z-index: 11; right: 1rem; bottom: 1rem; padding: .8rem 1rem; background: var(--yellow); color: var(--black); box-shadow: 0 8px 30px rgba(0,0,0,.25); font-size: .65rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
 .floating-contact span { margin-left: .35rem; }
+.admin-link { position: fixed; z-index: 12; right: max(5px, env(safe-area-inset-right)); bottom: max(1px, env(safe-area-inset-bottom)); padding: 3px 5px; color: #fff; opacity: .16; font-size: 9px; line-height: 1; letter-spacing: .02em; text-decoration: none; transition: opacity .18s ease; }
+.admin-link:hover { opacity: .65; }
+.admin-link:focus-visible { opacity: 1; outline: 1px solid var(--yellow); outline-offset: 2px; }
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .75s ease, transform .75s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 .loading { align-self: center; color: var(--muted); }

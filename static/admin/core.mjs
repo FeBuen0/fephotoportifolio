@@ -36,7 +36,7 @@ async function derive(password, salt, usage) {
 }
 export async function createVault(username, password, token) {
   if (!/^[a-zA-Z0-9_.-]{3,80}$/.test(username)) fail('Use de 3 a 80 letras, números, pontos, hífens ou sublinhados no usuário.');
-  if (typeof password !== 'string' || password.length < 16 || password.length > 256) fail('Use uma senha de 16 a 256 caracteres.');
+  if (typeof password !== 'string' || password.length < 6 || password.length > 256) fail('A senha do painel deve ter de 6 a 256 caracteres.');
   if (typeof token !== 'string' || token.length < 20 || token.length > 1024 || /\s/.test(token)) fail('A chave do GitHub não é válida.');
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const iv = crypto.getRandomValues(new Uint8Array(12));
@@ -106,7 +106,7 @@ export class GitHubStore {
       ...(body ? { body: JSON.stringify(body) } : {}),
     });
     if (!response.ok) {
-      const message = response.status === 401 ? 'A chave de acesso venceu ou foi revogada. Importe um novo acesso.'
+      const message = response.status === 401 ? 'A chave de acesso venceu ou foi revogada. Saia e use Reconectar publicação para conectar uma nova chave.'
         : response.status === 403 ? 'O GitHub não permitiu a operação. Confira a permissão de conteúdo e o limite de requisições.'
         : [409, 422].includes(response.status) ? 'O site foi alterado durante a publicação. Seu rascunho foi mantido; tente publicar novamente.'
         : response.status === 404 ? 'Não foi possível acessar o portfólio com esta chave.' : 'O GitHub não respondeu como esperado. Tente novamente.';
