@@ -1,25 +1,76 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Fephotos — Painel</title>
-    <style>
-      :root { color-scheme: dark; font-family: Arial, sans-serif; background: #111; color: #eee; }
-      body { margin: 0; min-height: 100svh; display: grid; place-items: center; }
-      main { max-width: 420px; padding: 32px; }
-      h1 { font-size: 28px; font-weight: 500; }
-      p { color: #bbb; line-height: 1.6; }
-      a { color: #e8df63; text-underline-offset: 4px; }
-      a:focus-visible { outline: 2px solid #e8df63; outline-offset: 5px; }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>Painel indisponível</h1>
-      <p>O acesso de edição ainda não está ativo. O portfólio continua disponível normalmente.</p>
-      <a href="../">Voltar ao site</a>
-    </main>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data: https://raw.githubusercontent.com; connect-src 'self' https://api.github.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'" />
+  <title>Fephotos — Fotos e grupos</title>
+  <link rel="icon" href="../favicon.ico" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="login-screen" class="login-screen">
+    <section class="login-card" aria-labelledby="login-title">
+      <img class="login-symbol" src="../images/fephotos-simbolo.png" width="44" height="44" alt="Fephotos" />
+      <p class="eyebrow">FEPHOTOS / ÁREA DE EDIÇÃO</p>
+      <h1 id="login-title">Seu próximo<br>trabalho começa aqui.</h1>
+      <p class="muted">Entre para organizar as fotos do seu portfólio.</p>
+      <form id="login-form">
+        <label for="username">Usuário</label>
+        <input id="username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="80" required />
+        <label for="password">Senha</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" maxlength="256" required />
+        <p id="login-message" class="form-message" role="status" aria-live="polite"></p>
+        <button id="login-submit" type="submit" class="primary">Entrar <span aria-hidden="true">→</span></button>
+      </form>
+      <div class="access-options">
+        <button id="import-access" class="text-button" type="button">Importar arquivo de acesso</button>
+        <input id="access-file" type="file" accept="application/json,.json" hidden />
+        <details><summary>Primeiro acesso?</summary><p>Faça a configuração uma vez no seu computador. Depois, importe o arquivo de acesso e entre com o usuário e a senha escolhidos.</p><a href="primeiro-acesso.zip" download>Baixar configuração inicial</a></details>
+      </div>
+      <a class="back-link" href="../">Voltar ao portfólio <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <div id="editor" hidden>
+    <header class="topbar">
+      <a class="brand" href="../" aria-label="Fephotos — abrir portfólio"><img src="../images/fephotos-simbolo.png" width="30" height="30" alt="" /><span>fephotos<span class="brand-dot">.</span></span></a>
+      <span class="topbar-caption">FOTOS E GRUPOS</span>
+      <nav aria-label="Ações do painel"><a href="../trabalhos/" target="_blank" rel="noopener noreferrer">Ver site <span aria-hidden="true">↗</span></a><button id="logout" class="text-button" type="button">Sair</button></nav>
+    </header>
+    <div class="workspace">
+      <aside class="sidebar" aria-label="Grupos de fotos">
+        <div class="sidebar-heading"><div><p class="eyebrow">SEU PORTFÓLIO</p><h2>Grupos <span id="group-count" class="count"></span></h2></div><button id="new-group" class="square-button add-group" type="button" aria-label="Criar grupo">+</button></div>
+        <p class="sidebar-intro">Um ensaio, um tema ou uma história.</p>
+        <div id="group-list" class="group-list"></div>
+        <p class="sidebar-note"><span class="status-dot"></span> Hospedagem no GitHub Pages</p>
+      </aside>
+      <main class="content">
+        <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+        <section id="empty-editor" class="empty-editor"><p class="eyebrow">ESPAÇO PARA NOVAS HISTÓRIAS</p><h1>Organize seu portfólio.</h1><p>Escolha um grupo ao lado ou crie um novo.</p><button id="empty-new-group" class="primary" type="button">Criar primeiro grupo <span aria-hidden="true">+</span></button></section>
+        <section id="group-editor" hidden aria-labelledby="group-heading">
+          <div class="content-heading"><div><p class="eyebrow">EDITANDO GRUPO</p><h1 id="group-heading"></h1></div><div class="group-actions"><button id="group-up" class="square-button" type="button" aria-label="Subir grupo" title="Subir grupo">↑</button><button id="group-down" class="square-button" type="button" aria-label="Descer grupo" title="Descer grupo">↓</button><button id="delete-group" class="danger text-button" type="button">Excluir grupo</button></div></div>
+          <div class="group-fields"><div><label for="group-name">Nome do grupo</label><input id="group-name" maxlength="120" placeholder="Ex.: Viagem ao Pantanal" /></div><div><label for="group-category">Categoria</label><select id="group-category"><option>Ensaio pessoal</option><option>Ensaio para marcas</option><option>Vídeo</option><option>Motion</option></select></div></div>
+          <details class="description-fields"><summary>Descrição do projeto <span class="muted">(opcional)</span></summary><div class="description-grid"><div><label for="challenge">Desafio</label><textarea id="challenge" rows="2" maxlength="3000"></textarea></div><div><label for="role">O que fiz</label><textarea id="role" rows="2" maxlength="3000"></textarea></div><div><label for="result">Resultado</label><textarea id="result" rows="2" maxlength="3000"></textarea></div></div></details>
+          <div id="video-note" class="notice" hidden>Este grupo contém um vídeo. O arquivo existente será mantido; você pode editar o nome e a descrição.</div>
+          <div id="photo-section">
+            <div class="photo-heading"><h2>Fotos <span id="photo-count" class="count"></span></h2><p>Arraste para ordenar ou use as setas.</p></div>
+            <div id="dropzone" class="dropzone"><span class="upload-symbol" aria-hidden="true">↑</span><div><strong>Solte suas fotos aqui</strong><p>JPG, PNG ou WebP · selecione várias de uma vez</p></div><button id="choose-photos" class="secondary" type="button">Selecionar fotos</button><input id="photo-files" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden /></div>
+            <p id="upload-progress" class="muted upload-progress" role="status" aria-live="polite">As fotos são otimizadas para o site. Os arquivos originais ficam no seu computador.</p>
+            <div id="photo-grid" class="photo-grid"></div>
+            <div id="empty-photos" class="empty-photos" hidden><span aria-hidden="true">＋</span><h3>Comece com a primeira foto.</h3><p>Ela também será a capa deste grupo.</p></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <footer class="publish-bar"><div><strong id="draft-status">Tudo atualizado</strong><span id="publish-status">As alterações só vão ao ar quando você publicar.</span></div><div class="publish-actions"><button id="reload-groups" class="text-button" type="button">Recarregar</button><button id="publish" class="primary" type="button" disabled>Publicar no site <span aria-hidden="true">↗</span></button></div></footer>
+  </div>
+
+  <dialog id="new-group-dialog"><form method="dialog" id="new-group-form"><p class="eyebrow">UM NOVO COMEÇO</p><h2>Criar grupo</h2><label for="new-group-name">Como ele vai se chamar?</label><input id="new-group-name" maxlength="120" placeholder="Ex.: Ensaio de família" required /><p class="muted">Você poderá renomear e organizar depois.</p><div class="dialog-actions"><button class="secondary" type="button" id="cancel-new-group">Cancelar</button><button class="primary" type="submit">Criar grupo</button></div></form></dialog>
+  <dialog id="confirm-dialog"><form method="dialog"><h2 id="confirm-title"></h2><p id="confirm-message" class="muted"></p><div class="dialog-actions"><button class="secondary" value="cancel">Cancelar</button><button class="primary" value="confirm" id="confirm-button">Confirmar</button></div></form></dialog>
+  <noscript>Ative o JavaScript para usar o painel.</noscript>
+  <script type="module" src="app.mjs"></script>
+</body>
 </html>

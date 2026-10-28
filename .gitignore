@@ -2,3 +2,7 @@ dist/
 node_modules/
 .netlify/
 assets-review/
+.env
+.env.*
+fephotos-acesso*.json
+**/fephotos-acesso*.json

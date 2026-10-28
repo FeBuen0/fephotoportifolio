@@ -14,24 +14,39 @@ A hospedagem no GitHub Pages está disponível no plano gratuito para este repos
 - `content/site.json`: apresentação, fundos, textos, contatos e SEO.
 - `content/projects/`: um JSON por projeto, com fotos, descrição e ordem.
 - `static/images/portfolio/` e `static/images/uploads/`: arquivos de mídia.
-- `static/admin/config.yml`: estrutura de conteúdo do Decap preservada para uma futura integração.
+- `static/admin/`: painel estático de fotos e grupos e pacote de configuração local de acesso.
 - `build.mjs`: gera `dist/`, copia os arquivos e consolida os projetos.
 
-## Fotos e projetos
+## Painel de fotos e grupos
 
-As fotos atuais pertencem ao fotógrafo. Para atualizar o conteúdo pelo GitHub:
+Abra **https://fephotos.com.br/admin/**. O painel permite criar e renomear grupos, enviar várias fotos, escolher a primeira foto como capa, ordenar fotos e grupos, mover fotos entre grupos e retirar grupos do portfólio. As duas entradas de vídeo existentes são preservadas.
 
-1. Envie os arquivos para `static/images/uploads/` pelo repositório.
-2. No JSON do projeto em `content/projects/`, informe o caminho público `/images/uploads/nome-da-foto.jpg` e o texto alternativo. Para um novo projeto, use um JSON existente como referência.
-3. Faça o commit em `main`. O GitHub Actions publica a atualização automaticamente.
+Fotos JPG, PNG e WebP são otimizadas no navegador para até 2200 px no lado maior. Os originais no computador não são alterados. O rascunho, incluindo as fotos novas, fica no IndexedDB deste navegador até publicar. Uma falha de armazenamento mostra que o rascunho só está disponível na aba atual.
 
-Para as imagens de fundo, edite os campos correspondentes em `content/site.json`. Prefira JPG ou WebP comprimidos, com até 2200 px no lado maior e, quando possível, abaixo de 500 KB. Vídeos podem usar MP4 ou o ID do YouTube conforme a estrutura dos projetos existentes.
+**Publicar no site** envia os JSONs e as fotos no mesmo commit em `main`; o workflow do GitHub Pages atualiza o portfólio. A página confirma o resultado da publicação quando o GitHub informa a conclusão. Retirar uma foto ou excluir um grupo remove referências do portfólio; não apaga os arquivos originais já enviados ao repositório.
 
-## Painel de edição
+### Primeiro acesso, uma única vez
 
-O antigo login dependia de um serviço de autenticação no Netlify. Esse serviço foi retirado do fluxo. A página `/admin/` informa que o acesso ainda está indisponível e não carrega o CMS nem abre um login no provedor antigo.
+1. Baixe `https://fephotos.com.br/admin/primeiro-acesso.zip`, extraia e abra `configurar-acesso.html` no seu computador. Não é necessário instalar Node.js.
+2. No configurador, siga **Como obter a chave de publicação?** para criar um token fine-grained na conta `FeBuen0`, limitado a `fephotoportifolio` e à permissão **Contents: Read and write**. Escolha uma expiração. O token e a configuração não exigem contratar hospedagem.
+3. Escolha o único usuário do painel e uma senha de pelo menos 16 caracteres. O configurador verifica o token diretamente com a API oficial do GitHub e gera `fephotos-acesso.json`.
+4. No painel, use **Importar arquivo de acesso** e entre com esse usuário e senha. Depois, basta entrar normalmente neste navegador. Em outro dispositivo, importe o mesmo arquivo.
 
-O painel com usuário e senha próprios **ainda não está ativo**. Uma implementação futura deve manter a edição protegida no servidor e respeitar a restrição de não adicionar cobrança de hospedagem. Não coloque senhas ou tokens no HTML, JavaScript, JSON de conteúdo ou repositório público.
+Não há cadastro de usuários, recuperação ou criação de senha na página do painel. A configuração inicial acontece no arquivo local do proprietário. Uma chave vencida/revogada ou uma senha esquecida exige gerar outro arquivo pelo configurador.
+
+### Como o acesso é protegido
+
+O GitHub Pages continua servindo apenas arquivos estáticos. O usuário e a senha abrem localmente uma credencial criptografada com **AES-256-GCM**, usando uma chave derivada da senha com **PBKDF2-HMAC-SHA256, 600.000 iterações**, salt aleatório e IV aleatório. A senha não é armazenada nem enviada para um servidor de login.
+
+Só a versão criptografada do token fica no armazenamento do navegador. O token aberto permanece na memória da aba, é enviado apenas à API oficial do GitHub e é descartado ao sair, após 20 minutos sem atividade ou após duas horas de sessão. Quem autoriza leituras e gravações é o GitHub; o login não depende de esconder os botões do painel. O painel restringe as chamadas à conta e ao repositório esperados, publica somente projetos e fotos e nunca faz force-push.
+
+Essa solução não cria uma conta com sessão num servidor próprio. É um cofre local de credencial que permite manter o painel sem outro serviço de hospedagem. Não coloque o arquivo de acesso, senha ou token no repositório. O `.gitignore` bloqueia o nome padrão do arquivo de acesso.
+
+Não há scripts, fontes ou bibliotecas de terceiros no painel. Uma política de conteúdo restringe scripts à própria origem e conexões à API oficial do GitHub. Atualizações de um mesmo grupo em outra aba são detectadas antes da publicação; alterações remotas em arquivos que você não editou são preservadas.
+
+### Atualizar o pacote de configuração
+
+Depois de editar `static/admin/core.mjs`, rode `npm run build:access` antes de `npm run build`. O ZIP contém apenas o configurador e instruções, nunca credenciais. `npm test` verifica a criptografia, o escopo das operações, conflitos, envio atômico e preservação das fotos.
 
 ## Rodar no computador
 
