@@ -1,6 +1,7 @@
 import { GitHubStore, REPOSITORY, createVault, unlockVault, validateVault, newGroup, randomId } from './core.mjs?v=github-fetch-3';
 import { ADMIN_USERNAME, verifyLogin } from './login.mjs?v=acesso-direto-2';
 import { readDraft, saveDraft, clearDraft } from './drafts.mjs';
+import { checkLivePublication } from './publication.mjs?v=publicacao-4';
 
 const $ = selector => document.querySelector(selector);
 const ACCESS_KEY = 'fephotos.admin.access.v1';
@@ -22,6 +23,7 @@ let memoryOnly = false;
 let draftSaving = false;
 let saveSequence = Promise.resolve();
 let publishGeneration = 0;
+let publication = null;
 let draggedPhoto = null;
 const objectURLs = new Map();
 
@@ -57,10 +59,19 @@ function notice(text, error = false) {
 function updateStatus(message) {
   const count = dirtyCount();
   $('#draft-status').textContent = processing ? 'Preparando fotos…' : publishing ? 'Publicando…'
-    : count ? `${count} ${count === 1 ? 'grupo com alterações' : 'grupos com alterações'}` : 'Tudo atualizado';
+    : count ? `${count} ${count === 1 ? 'grupo com alterações' : 'grupos com alterações'}`
+    : publication?.phase === 'waiting' ? 'Atualizando o site…'
+    : publication?.phase === 'success' ? 'Publicado no site'
+    : publication?.phase === 'error' ? 'Publicação não concluída'
+    : publication?.phase === 'pending' ? 'Publicação ainda não confirmada' : 'Sem alterações pendentes';
   if (message) $('#publish-status').textContent = message;
-  else if (!publishing) $('#publish-status').textContent = count ? memoryOnly ? 'Rascunho só nesta aba. Mantenha-a aberta até publicar.' : draftSaving ? 'Salvando rascunho neste navegador…' : 'Rascunho salvo apenas neste navegador.' : 'As alterações só vão ao ar quando você publicar.';
+  else if (!publishing) $('#publish-status').textContent = count ? memoryOnly ? 'Rascunho só nesta aba. Mantenha-a aberta até publicar.' : draftSaving ? 'Salvando rascunho neste navegador…' : 'Rascunho salvo apenas neste navegador.'
+    : publication?.message || 'Adicione ou edite fotos e grupos para publicar.';
   $('#publish').disabled = !count || publishing || processing;
+  $('#publish').textContent = publishing ? 'Enviando…' : count ? 'Publicar no site'
+    : publication?.phase === 'waiting' ? 'Atualizando site…' : publication?.phase === 'success' ? 'Publicado' : 'Sem alterações';
+  $('#view-publication').hidden = !!count || publication?.phase !== 'success';
+  if (publication?.phase === 'success') $('#view-publication').href = `../trabalhos/?v=${publication.sha}`;
   $('#choose-photos').disabled = processing || publishing;
 }
 function draftValue() { return { version: 1, groups, deleted, uploads: [...uploads], selected, savedAt: Date.now() }; }
@@ -321,6 +332,7 @@ $('#cancel-connect').addEventListener('click', () => { clearConnection(); $('#pa
 
 export async function openEditor(client) {
   store = client;
+  publication = null;
   const loaded = await client.load();
   groups = loaded.groups; deleted = []; uploads = new Map(); selected = groups[0]?.path || '';
   let restored = false;
@@ -395,43 +407,59 @@ function setEditorBusy(value) {
   for (const element of document.querySelectorAll('#editor input, #editor select, #editor textarea, #editor button')) element.disabled = value;
   for (const element of document.querySelectorAll('.photo-card')) element.draggable = !value;
 }
-async function watchPublication(sha, generation) {
-  for (let attempt = 0; attempt < 15 && generation === publishGeneration; attempt++) {
-    await new Promise(resolve => setTimeout(resolve, 6000));
+async function watchPublication(expected, generation) {
+  const deadline = Date.now() + 120000;
+  for (let attempt = 0; attempt < 30 && Date.now() < deadline && generation === publishGeneration; attempt++) {
+    await new Promise(resolve => setTimeout(resolve, 4000));
     if (generation !== publishGeneration) return;
     try {
-      const response = await fetch(`https://api.github.com/repos/${REPOSITORY}/actions/runs?head_sha=${encodeURIComponent(sha)}&per_page=5`, { credentials: 'omit', cache: 'no-store', signal: AbortSignal.timeout(15000) });
-      if (!response.ok) break;
+      const live = await checkLivePublication(expected, { basePath });
+      if (generation !== publishGeneration) return;
+      if (live) {
+        publication = { phase: 'success', sha: expected.sha, message: 'Concluído. As fotos e os grupos foram conferidos no site.' };
+        updateStatus(); notice('Publicação concluída. Clique em Ver publicação para conferir as fotos.'); return;
+      }
+    } catch { /* A temporary site error must not be reported as a successful publication. */ }
+    if (attempt % 3 !== 0 || Date.now() >= deadline) continue;
+    try {
+      const response = await fetch(`https://api.github.com/repos/${REPOSITORY}/actions/runs?head_sha=${encodeURIComponent(expected.sha)}&per_page=5`, { credentials: 'omit', cache: 'no-store', signal: AbortSignal.timeout(10000) });
+      if (generation !== publishGeneration) return;
+      if (!response.ok) continue;
       const data = await response.json(); const run = data.workflow_runs?.find(item => item.name === 'Publicar no GitHub Pages');
-      if (run?.status !== 'completed') continue;
-      if (run.conclusion === 'success') { notice('Publicação concluída. As fotos e os grupos já estão no site.'); $('#publish-status').textContent = 'Publicação confirmada pelo GitHub Pages.'; }
-      else notice('As alterações foram salvas, mas a publicação do site falhou. O conteúdo anterior continua no ar. Verifique a publicação no GitHub.', true);
-      return;
-    } catch { break; }
+      if (generation !== publishGeneration) return;
+      if (run?.status === 'completed' && run.conclusion !== 'success') {
+        publication = { phase: 'error', sha: expected.sha, message: 'Fotos salvas no GitHub, mas a publicação falhou. Confira a execução no GitHub.' };
+        updateStatus(); notice(publication.message, true); return;
+      }
+    } catch { /* Keep checking the public site even when Actions cannot be queried. */ }
   }
-  if (generation === publishGeneration) $('#publish-status').textContent = 'Alterações enviadas. Confira o site em instantes.';
+  if (generation === publishGeneration) {
+    publication = { phase: 'pending', sha: expected.sha, message: 'Fotos salvas no GitHub. A confirmação demorou mais que o esperado; confira Ver site ou a publicação no GitHub.' };
+    updateStatus(); notice(publication.message, true);
+  }
 }
 $('#publish').addEventListener('click', async () => {
   if (!store || publishing || processing || !dirtyCount()) return;
   publishing = true; setEditorBusy(true); updateStatus('Enviando os grupos e as fotos…'); notice('');
+  const generation = ++publishGeneration;
+  publication = null;
   const client = store;
-  let sent = false;
   try {
     const result = await client.publish(groups, deleted, uploads, (done, total) => updateStatus(`Enviando arquivo ${done} de ${total}…`));
-    sent = true;
+    const expected = { ...result, deleted: deleted.map(group => group.path) };
     for (const group of groups) {
       if (result.files?.[group.path]) group.sha = result.files[group.path];
       group.dirty = false;
     }
     deleted = []; uploads.clear(); clearTimeout(draftTimer); await saveSequence.catch(() => {});
     try { await clearDraft(); } catch { memoryOnly = true; }
-    const generation = ++publishGeneration;
+    publication = { phase: 'waiting', sha: result.sha, message: 'Fotos enviadas. Aguardando o site receber a nova versão…' };
     notice('Fotos e grupos enviados. O GitHub está atualizando o site.');
-    $('#publish-status').textContent = 'Aguardando a publicação do GitHub Pages…';
-    watchPublication(result.sha, generation);
+    watchPublication(expected, generation);
   } catch (error) { notice(error.message, true); await persistDraft(); }
-  finally { publishing = false; setEditorBusy(false); render(); if (sent) $('#publish-status').textContent = 'Aguardando a publicação do GitHub Pages…'; resetIdle(); }
+  finally { publishing = false; setEditorBusy(false); render(); resetIdle(); }
 });
 window.addEventListener('beforeunload', event => {
   if (store && (dirtyCount() || processing || publishing)) { event.preventDefault(); event.returnValue = ''; }
 });
+

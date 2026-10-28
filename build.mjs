@@ -1,6 +1,7 @@
 import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const fromRoot = (...parts) => join(root, ...parts);
@@ -26,10 +27,19 @@ await writeFile(indexPath, index
 
 const projectsDirectory = fromRoot('content', 'projects');
 const projectFiles = (await readdir(projectsDirectory)).filter((file) => file.endsWith('.json'));
+const publishedFiles = {};
 const projects = await Promise.all(
-  projectFiles.map(async (file) => JSON.parse(await readFile(join(projectsDirectory, file), 'utf8')))
+  projectFiles.map(async (file) => {
+    const content = await readFile(join(projectsDirectory, file));
+    publishedFiles[`content/projects/${file}`] = createHash('sha1').update(`blob ${content.length}\0`).update(content).digest('hex');
+    return JSON.parse(content.toString('utf8'));
+  })
 );
 projects.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 await writeFile(join(dist, 'data', 'projects.json'), JSON.stringify(projects, null, 2));
+await writeFile(join(dist, 'data', 'publication.json'), JSON.stringify({
+  version: 1, commit: process.env.GITHUB_SHA || null, builtAt: new Date().toISOString(), projects: publishedFiles,
+}));
 
 console.log(`Build concluído: ${projects.length} projetos publicados.`);
+

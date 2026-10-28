@@ -81,12 +81,13 @@
         </section>
       </main>
     </div>
-    <footer class="publish-bar"><div><strong id="draft-status">Tudo atualizado</strong><span id="publish-status">As alterações só vão ao ar quando você publicar.</span></div><div class="publish-actions"><button id="reload-groups" class="text-button" type="button">Recarregar</button><button id="publish" class="primary" type="button" disabled>Publicar no site <span aria-hidden="true">↗</span></button></div></footer>
+    <footer class="publish-bar"><div role="status" aria-live="polite" aria-atomic="true"><strong id="draft-status">Sem alterações pendentes</strong><span id="publish-status">Adicione ou edite fotos e grupos para publicar.</span></div><div class="publish-actions"><a id="view-publication" class="text-button" href="../trabalhos/" target="_blank" rel="noopener noreferrer" hidden>Ver publicação ↗</a><button id="reload-groups" class="text-button" type="button">Recarregar</button><button id="publish" class="primary" type="button" disabled>Publicar no site <span aria-hidden="true">↗</span></button></div></footer>
   </div>
 
   <dialog id="new-group-dialog"><form method="dialog" id="new-group-form"><p class="eyebrow">UM NOVO COMEÇO</p><h2>Criar grupo</h2><label for="new-group-name">Como ele vai se chamar?</label><input id="new-group-name" maxlength="120" placeholder="Ex.: Ensaio de família" required /><p class="muted">Você poderá renomear e organizar depois.</p><div class="dialog-actions"><button class="secondary" type="button" id="cancel-new-group">Cancelar</button><button class="primary" type="submit">Criar grupo</button></div></form></dialog>
   <dialog id="confirm-dialog"><form method="dialog"><h2 id="confirm-title"></h2><p id="confirm-message" class="muted"></p><div class="dialog-actions"><button class="secondary" value="cancel">Cancelar</button><button class="primary" value="confirm" id="confirm-button">Confirmar</button></div></form></dialog>
   <noscript>Ative o JavaScript para usar o painel.</noscript>
-  <script type="module" src="app.mjs?v=github-fetch-3"></script>
+  <script type="module" src="app.mjs?v=publicacao-4"></script>
 </body>
 </html>
+

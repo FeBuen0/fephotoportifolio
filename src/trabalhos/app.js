@@ -100,10 +100,11 @@ function renderGroups(projects) {
 }
 
 async function initialise() {
-  const response = await fetch('../data/projects.json');
+  const response = await fetch(`../data/projects.json?v=${Date.now()}`, { cache: 'no-store' });
   if (!response.ok) throw new Error('Não foi possível carregar os trabalhos.');
   const projects = await response.json();
   renderGroups(projects.sort((first, second) => (first.order || 0) - (second.order || 0)));
 }
 
 initialise().catch(() => { $('#works-groups').innerHTML = '<p class="loading">Não foi possível carregar os trabalhos.</p>'; });
+

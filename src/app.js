@@ -183,7 +183,11 @@ function bindMobileMenu() {
 
 async function initialise() {
   try {
-    const [siteResponse, projectsResponse] = await Promise.all([fetch('data/site.json'), fetch('data/projects.json')]);
+    const version = Date.now();
+    const [siteResponse, projectsResponse] = await Promise.all([
+      fetch(`data/site.json?v=${version}`, { cache: 'no-store' }),
+      fetch(`data/projects.json?v=${version}`, { cache: 'no-store' }),
+    ]);
     if (!siteResponse.ok || !projectsResponse.ok) throw new Error('Não foi possível carregar os dados.');
     state.site = await siteResponse.json();
     state.allProjects = await projectsResponse.json();
@@ -207,3 +211,4 @@ async function initialise() {
 
 $('#year').textContent = new Date().getFullYear();
 initialise();
+
