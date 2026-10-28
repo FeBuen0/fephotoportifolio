@@ -10,7 +10,7 @@ function assetUrl(value = '') {
 function motionMedia(project) {
   const poster = assetUrl(project.media.poster || '');
   return `<div class="motion-media" data-motion-player>
-    <span class="media-label">Motion</span>
+    <span class="media-label">${escapeHtml(project.type || 'Vídeo')}</span>
     <video data-motion-video muted playsinline preload="metadata" poster="${escapeHtml(poster)}" aria-label="Vídeo: ${escapeHtml(project.title)}">
       <source src="${escapeHtml(assetUrl(project.media.video))}" type="video/mp4" />
       Seu navegador não suporta vídeo HTML5.
@@ -27,10 +27,10 @@ function imageMedia(project) {
 }
 
 function projectMarkup(project) {
-  const isMotion = project.type === 'Motion' && project.media?.mode === 'video' && project.media.video;
-  const media = isMotion ? motionMedia(project) : imageMedia(project);
-  return `<article class="work-project${isMotion ? ' work-project-motion' : ''}">
-    ${isMotion ? '' : `<header class="work-project-header"><h2>${escapeHtml(project.title)}</h2></header>`}
+  const isVideo = project.media?.mode === 'video' && project.media.video;
+  const media = isVideo ? motionMedia(project) : imageMedia(project);
+  return `<article class="work-project${isVideo ? ' work-project-motion' : ''}">
+    ${isVideo ? '' : `<header class="work-project-header"><h2>${escapeHtml(project.title)}</h2></header>`}
     ${media}
   </article>`;
 }
@@ -55,6 +55,8 @@ function startMotion(player) {
 }
 
 function setupMotionPlayers(root = document) {
+  const players = [...root.querySelectorAll('[data-motion-player]')];
+  if (!players.length) return () => {};
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
     if (!entry.isIntersecting) return;
@@ -62,41 +64,97 @@ function setupMotionPlayers(root = document) {
     if (!reducedMotion) startMotion(entry.target);
   }), { threshold: .6 });
 
-  root.querySelectorAll('[data-motion-player]').forEach((player) => {
+  players.forEach((player) => {
     const restart = player.querySelector('[data-motion-restart]');
     restart.addEventListener('click', () => startMotion(player));
     if (reducedMotion) restart.hidden = false;
     observer.observe(player);
   });
+  return () => {
+    observer.disconnect();
+    players.forEach((player) => {
+      const video = player.querySelector('[data-motion-video]');
+      video.onended = null;
+      video.pause();
+    });
+  };
 }
 
 function renderGroups(projects) {
   const validProjects = projects.filter((project) => (project.media?.mode === 'video' && project.media.video)
     || (project.media?.images || []).some((item) => item.image));
-  const groups = validProjects.reduce((map, project) => {
-    const type = project.type || 'Outros';
-    if (!map.has(type)) map.set(type, []);
-    map.get(type).push(project);
-    return map;
-  }, new Map());
-  const order = ['Ensaio pessoal', 'Ensaio para marcas', 'Vídeo', 'Motion'];
-  const sortedGroups = [...groups.entries()].sort(([first], [second]) => {
-    const firstPosition = order.indexOf(first);
-    const secondPosition = order.indexOf(second);
-    return (firstPosition === -1 ? order.length : firstPosition) - (secondPosition === -1 ? order.length : secondPosition);
+  const groups = validProjects.filter((project) => project.type !== 'Motion')
+    .map((project) => ({ title: project.title || project.type || 'Projeto', entries: [project] }));
+  const motion = validProjects.filter((project) => project.type === 'Motion');
+  if (motion.length) groups.push({ title: 'Motion', entries: motion, isMotion: true });
+  const tabs = $('#works-tabs');
+  const panel = $('#works-groups');
+  panel.setAttribute('aria-busy', 'false');
+  if (!groups.length) {
+    panel.innerHTML = '<p class="loading">Em breve, novos trabalhos por aqui.</p>';
+    return;
+  }
+  const buttons = groups.map((group, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.id = `work-tab-${index}`;
+    button.className = 'works-tab';
+    button.setAttribute('role', 'tab');
+    button.setAttribute('aria-controls', 'works-groups');
+    button.setAttribute('aria-selected', 'false');
+    button.tabIndex = -1;
+    button.textContent = group.title;
+    return button;
   });
-  $('#works-groups').innerHTML = sortedGroups.map(([type, entries]) => `<section class="work-topic" aria-label="${escapeHtml(type)}">
-    ${type === 'Motion' ? '<div class="motion-topic-heading"><h2>Motion</h2></div>' : ''}
-    <div class="work-topic-projects${type === 'Motion' ? ' work-topic-projects--motion' : ''}">${entries.map(projectMarkup).join('')}</div>
-  </section>`).join('');
-  $('#works-groups').querySelectorAll('img').forEach((image) => image.addEventListener('error', () => {
-    const photo = image.closest('.project-photo');
-    if (!photo) return;
-    const grid = photo.parentElement;
-    photo.remove();
-    if (!grid.querySelector('img')) grid.closest('.work-project')?.remove();
-  }, { once: true }));
-  setupMotionPlayers($('#works-groups'));
+  tabs.replaceChildren(...buttons);
+  tabs.hidden = false;
+  let selected = -1;
+  let stopMotion = () => {};
+  function selectGroup(index, focus = false) {
+    const scrollBack = selected !== -1 && panel.getBoundingClientRect().top < tabs.getBoundingClientRect().bottom;
+    if (focus) buttons[index].focus({ preventScroll: true });
+    if (selected === index) return;
+    stopMotion();
+    selected = index;
+    buttons.forEach((button, position) => {
+      button.setAttribute('aria-selected', String(position === index));
+      button.tabIndex = position === index ? 0 : -1;
+    });
+    const group = groups[index];
+    panel.removeAttribute('aria-label');
+    panel.setAttribute('aria-labelledby', buttons[index].id);
+    panel.innerHTML = `<div class="work-topic-projects${group.isMotion ? ' work-topic-projects--motion' : ''}">${group.entries.map(projectMarkup).join('')}</div>`;
+    panel.querySelectorAll('img').forEach((image) => image.addEventListener('error', () => {
+      const photo = image.closest('.project-photo');
+      if (!photo) return;
+      const grid = photo.parentElement;
+      photo.remove();
+      if (!grid.querySelector('img')) grid.closest('.work-project')?.remove();
+    }, { once: true }));
+    stopMotion = setupMotionPlayers(panel);
+    if (scrollBack) panel.scrollIntoView({ block: 'start', behavior: 'auto' });
+  }
+  buttons.forEach((button, index) => {
+    button.addEventListener('click', () => selectGroup(index));
+    button.addEventListener('keydown', (event) => {
+      const next = event.key === 'ArrowRight' ? (index + 1) % groups.length
+        : event.key === 'ArrowLeft' ? (index - 1 + groups.length) % groups.length
+        : event.key === 'Home' ? 0 : event.key === 'End' ? groups.length - 1 : null;
+      if (next === null) return;
+      event.preventDefault();
+      selectGroup(next, true);
+    });
+  });
+  function updateStickySpacing() {
+    document.documentElement.style.setProperty('--works-header-height', `${$('.works-header').getBoundingClientRect().height}px`);
+    document.documentElement.style.setProperty('--works-tabs-height', `${tabs.getBoundingClientRect().height}px`);
+  }
+  updateStickySpacing();
+  const resizeObserver = new ResizeObserver(updateStickySpacing);
+  resizeObserver.observe($('.works-header'));
+  resizeObserver.observe(tabs);
+  const defaultIndex = groups.findIndex((group) => group.title.trim().toLocaleLowerCase('pt-BR') === 'ensaio pessoal');
+  selectGroup(defaultIndex === -1 ? 0 : defaultIndex);
 }
 
 async function initialise() {
@@ -106,5 +164,7 @@ async function initialise() {
   renderGroups(projects.sort((first, second) => (first.order || 0) - (second.order || 0)));
 }
 
-initialise().catch(() => { $('#works-groups').innerHTML = '<p class="loading">Não foi possível carregar os trabalhos.</p>'; });
-
+initialise().catch(() => {
+  $('#works-groups').setAttribute('aria-busy', 'false');
+  $('#works-groups').innerHTML = '<p class="loading">Não foi possível carregar os trabalhos.</p>';
+});
