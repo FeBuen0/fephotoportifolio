@@ -242,3 +242,11 @@ html.photo-viewer-open { overflow: hidden; }
   .site-header nav .menu-contact { display: none; }
   .header-contact { display: block; }
 }
+
+/* Discreet return to top, above the contact action. */
+.back-to-top { position: fixed; z-index: 11; right: 1rem; bottom: calc(4.5rem + env(safe-area-inset-bottom)); display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: rgba(10,10,10,.9); color: var(--yellow); }
+.back-to-top[hidden], body.menu-open .back-to-top { display: none; }
+.back-to-top .arrow { margin: 0; transform: rotate(-90deg); }
+.back-to-top:hover { border-color: var(--yellow); }
+.back-to-top:focus-visible { outline: 2px solid var(--yellow); outline-offset: 4px; }
+@media (min-width: 700px) { .back-to-top { right: 2rem; bottom: calc(5.5rem + env(safe-area-inset-bottom)); } }
