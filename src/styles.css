@@ -223,7 +223,8 @@ html.photo-viewer-open { overflow: hidden; }
   .featured-navigation { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .3rem 1rem; }
   .featured-navigation .featured-counter { grid-column: 1 / -1; grid-row: 1; margin-bottom: .5rem; }
   .featured-navigation .project-arrows { grid-column: 1; grid-row: 2; margin-right: 0; flex-wrap: nowrap; }
-  .featured-navigation .icon-button { width: 46px; min-width: 46px; padding: 0; font-size: 0; }
+  .featured-navigation .icon-button { width: 46px; min-width: 46px; padding: 0; gap: 0; font-size: 0; }
+  .featured-navigation .icon-button .arrow { margin: 0; }
   .featured-navigation .icon-button span { font-size: 1.25rem; }
   .mobile-gallery-hint { display: block; grid-column: 1; grid-row: 3; margin: 0; color: var(--muted); font-size: .58rem; letter-spacing: .1em; text-align: center; text-transform: uppercase; }
   .featured-project-media { min-height: min(58svh, 520px); }
